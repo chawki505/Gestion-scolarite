@@ -3,63 +3,108 @@
 
 {% block content %}
 
+	<style>
+		.error {
+			color: #dc3545;
+		}
+
+		.success {
+			color: #28a745;
+		}
+	</style>
+
 
 	<div class="container">
 		<div class="card card-register mx-auto mt-5">
 
-			<div class="card-header">Register an Account</div>
+			<div class="card-header">Enregistrer un compte</div>
 			<div class="card-body">
 
 
 				<form method="post" role="form" enctype="multipart/form-data">{% csrf_token %}
 
 					<div class="form-group">
+						<label for="exampleInputName">Nom d'utilisateur</label>
+						<input required name="nomUtilisateur" class="form-control" id="" type="text"
+							   aria-describedby="nameHelp" placeholder="Entrer votre nom d'utilisateur">
+
+					</div>
+
+					<div class="form-group">
 						<div class="form-row">
 							<div class="col-md-6">
-								<label for="exampleInputName">First name</label>
-								<input class="form-control" id="exampleInputName" type="text"
-									   aria-describedby="nameHelp" placeholder="Enter first name">
+								<label for="exampleInputName">Nom</label>
+
+								<input required name="nom" class="form-control" id="" type="text"
+									   aria-describedby="nameHelp" placeholder="Entrer votre nom">
 							</div>
 							<div class="col-md-6">
-								<label for="exampleInputLastName">Last name</label>
-								<input class="form-control" id="exampleInputLastName" type="text"
-									   aria-describedby="nameHelp" placeholder="Enter last name">
+								<label for="exampleInputLastName">Prénom</label>
+
+								<input required name="prenom" class="form-control" id="" type="text"
+									   aria-describedby="nameHelp" placeholder="Entrer votre prénom">
 							</div>
 						</div>
 					</div>
 
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">Email address</label>
-						<input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp"
-							   placeholder="Enter email">
+						<label for="exampleInputEmail1">Adresse email</label>
+						<input required name="email" class="form-control" id="exampleInputEmail1" type="email"
+							   aria-describedby="emailHelp"
+							   placeholder="Entrer votre adresse email">
 					</div>
 
 
 					<div class="form-group">
 						<div class="form-row">
 							<div class="col-md-6">
-								<label for="exampleInputPassword1">Password</label>
-								<input class="form-control" id="exampleInputPassword1" type="password"
-									   placeholder="Password">
+								<label for="exampleInputPassword1">Mot de passe</label>
+
+								<input required name="motDePasse" class="form-control" id="exampleInputPassword1"
+									   type="password"
+									   placeholder="Mot de passe">
 							</div>
+
 							<div class="col-md-6">
-								<label for="exampleConfirmPassword">Confirm password</label>
-								<input class="form-control" id="exampleConfirmPassword" type="password"
-									   placeholder="Confirm password">
+								<label for="exampleConfirmPassword">Confirme mot de passe</label>
+
+								<input required name="confirmeMotDePasse" class="form-control"
+									   id="exampleConfirmPassword"
+									   type="password"
+									   placeholder="Confirmer votre mot de passe">
 							</div>
 						</div>
 					</div>
 
+					<div class="form-group">
 
-					<button type="submit" class="btn btn-primary btn-block">Register</button>
+						{% if messages %}
+							<ul>
+								{% for message in messages %}
+
+									<li
+											{% if message.tags %}
+												class="{{ message.tags }}"
+											{% endif %}>
+										{{ message }}
+									</li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+					</div>
+
+
+					<button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
 
 				</form>
 
 
 				<div class="text-center">
-					<a class="d-block small mt-3" href="{% url 'login' %}">Login Page</a>
-					<a class="d-block small" href="#">Forgot Password?</a>
+					<a class="d-block small mt-3" href="{% url 'login' %}">Page de connexion</a>
+					<a class="d-block small" href="#">Mot de passe perdu ?</a>
+					<a class="d-block small mt-3" href="{% url 'home_page' %}"> Page d'accueil</a>
+
 				</div>
 			</div>
 		</div>

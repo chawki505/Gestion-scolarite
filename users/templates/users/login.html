@@ -5,6 +5,17 @@
 
 {% block content %}
 
+
+    <style>
+        .error {
+            color: #ff284e;
+        }
+
+        .success {
+            color: #4eb718;
+        }
+    </style>
+
     <div class="container">
         <div class="card card-login mx-auto mt-5">
             <div class="card-header">Login</div>
@@ -31,9 +42,10 @@
                         {% if messages %}
                             <ul>
                                 {% for message in messages %}
-                                    <li style="color: #ff284e"
+
+                                    <li
                                             {% if message.tags %}
-                                        class="{{ message.tags }}"
+                                                class="{{ message.tags }}"
                                             {% endif %}>
                                         {{ message }}
                                     </li>
@@ -48,8 +60,11 @@
                 </form>
 
                 <div class="text-center">
-                    <a class="d-block small mt-3" href="{% url 'register' %}">Register an Account</a>
-                    <a class="d-block small" href="#">Forgot Password?</a>
+                    <a class="d-block small mt-3" href="{% url 'register' %}">Enregistrer un compte</a>
+                    <a class="d-block small" href="#">Mot de passe perdu ?</a>
+                    <a class="d-block small mt-3" href="{% url 'home_page' %}"> Page d'accueil</a>
+
+
                 </div>
 
             </div>

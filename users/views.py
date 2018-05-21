@@ -38,34 +38,42 @@ def logout(request):
 
 
 def register(request):
-    return render(request, 'users/register.html', {})
-
-
-def register(request):
     if request.method == "POST":
 
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
+        username = request.POST.get("nomUtilisateur")
 
-        confirm_password = request.POST.get("confirm_password")
+        nom = request.POST.get("nom")
+
+        prenom = request.POST.get("prenom")
+
+        email = request.POST.get("email")
+
+        password = request.POST.get("motDePasse")
+
+        confirm_password = request.POST.get("confirmeMotDePasse")
 
         if User.objects.filter(username=username).exists():
-            messages.error(request, "this username exists")
-            return render(request, "users/register.html")
+            messages.error(request, "Ce nom d'utilisateur existe deja")
+            return redirect('register')
 
         if User.objects.filter(email=email).exists():
-            messages.error(request, "this email exists")
-            return render(request, "users/register.html")
+            messages.error(request, "Cette adresse mail existe deja")
+            return redirect('register')
 
         if password != confirm_password:
-            messages.error(request, "this email exists")
-            return render(request, "users/register.html")
+            messages.error(request, "Mot de passe different")
+            return redirect('register')
 
-        user = User.objects.create_user(username, email=email, password=password, is_staff=False, is_superuser=False)
+        user = User.objects.create_user(username, email=email, password=password)
+        user.first_name = nom
+        user.last_name = prenom
+        user.save()
 
-        messages.success(request, "think you for registration")
+        messages.success(request, "Merci pour votre enregistrement")
+
+        auth.logout(request)
 
         return redirect('login')
+
     else:
-        return render(request, "register.html")
+        return render(request, "users/register.html")

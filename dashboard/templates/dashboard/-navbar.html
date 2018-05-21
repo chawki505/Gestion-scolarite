@@ -4,7 +4,7 @@
 
     <!-- debut nav bar all-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-        <a class="navbar-brand" href="{% url 'home_page' %}">Gestion de scolarité</a>
+        <a class="navbar-brand" href="{% url 'home_page' %}">Services scolarité</a>
 
 
         <!-- debut btn nav responsive-->
@@ -118,6 +118,7 @@
 
             <!-- debut nav bar horizontale-->
             <ul class="navbar-nav ml-auto">
+
 
                 <!--debut menu deroulant message-->
                 <li class="nav-item dropdown">
@@ -273,10 +274,17 @@
                 <!-- fin bar de recherche-->
 
 
+                <!-- debut message hello-->
+                <li class="nav-item">
+                    <a class="nav-link">
+                        Bonjour {{ user.username }} !</a>
+                </li>
+                <!-- fin message hello-->
+
                 <!-- debut btn logout-->
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                        <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                        <i class="fa fa-fw fa-sign-out"></i>Déconnexion</a>
                 </li>
                 <!-- fin btn logout-->
             </ul>
