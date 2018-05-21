@@ -4,7 +4,7 @@
 
     <!-- debut nav bar all-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-        <a class="navbar-brand" href="{% url 'dashboard_home_page' %}">Gestion de scolarité</a>
+        <a class="navbar-brand" href="{% url 'home_page' %}">Gestion de scolarité</a>
 
 
         <!-- debut btn nav responsive-->
@@ -24,7 +24,7 @@
 
                 <!-- debut element 1 nav lateral-->
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                    <a class="nav-link" href="/">
+                    <a class="nav-link" href="{% url 'dashboard_home_page' %}">
                         <i class="fa fa-fw fa-dashboard"></i>
                         <span class="nav-link-text">Dashboard</span>
                     </a>
