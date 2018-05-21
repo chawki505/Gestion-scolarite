@@ -1,0 +1,59 @@
+{% extends 'users/base.html' %}
+
+{% load staticfiles %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header">Login</div>
+            <div class="card-body">
+
+                <form method="post" role="form" enctype="multipart/form-data">{% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="exampleInputUsername">Nom d'utilisateur</label>
+                        <input name="username" class="form-control" id="" type="text"
+                               placeholder="Username">
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="exampleInputPassword1">Mot de passe</label>
+
+                        <input name="password" class="form-control" id="" type="password"
+                               placeholder="Password">
+                    </div>
+
+                    <div class="form-group">
+
+                        {% if messages %}
+                            <ul>
+                                {% for message in messages %}
+                                    <li style="color: #ff284e"
+                                            {% if message.tags %}
+                                        class="{{ message.tags }}"
+                                            {% endif %}>
+                                        {{ message }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+
+                </form>
+
+                <div class="text-center">
+                    <a class="d-block small mt-3" href="#">Register an Account</a>
+                    <a class="d-block small" href="#">Forgot Password?</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
