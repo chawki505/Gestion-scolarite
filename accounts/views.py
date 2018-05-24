@@ -28,7 +28,7 @@ def login_account(request):
                 return redirect('dashboard_home_page')
 
             else:
-                messages.error(request, "wrong username or password ")
+                messages.error(request, "Nom d'utilisateur ou mot de passe erroné")
                 return redirect('login_account')
 
         else:

@@ -1,5 +1,7 @@
 {% extends 'dashboard/base.html' %}
 
+{% load staticfiles %}
+
 {% block content %}
 
 
@@ -8,21 +10,57 @@
         <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Blank Page</li>
+        <li class="breadcrumb-item active">Tables</li>
     </ol>
 
 
-    <div class="row">
-        <div class="col-12">
-            <h1>Blank</h1>
-            <p>This is a blank page that you can use as a starting point for creating new ones.</p>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> Data Table
         </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Autre</th>
+
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Autre</th>
+
+                    </tr>
+                    </tfoot>
+                    <tbody>
+
+                    {% for user in users %}
+
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td><a href="#"> detail</a></td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
-
-
-
-
-
+    </div>
 
 
 

@@ -36,7 +36,7 @@
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages"
                        data-parent="#exampleAccordion">
                         <i class="fa fa-fw fa-file"></i>
-                        <span class="nav-link-text">Example Pages</span>
+                        <span class="nav-link-text">Gestion des inscriptions</span>
                     </a>
 
                     <ul class="sidenav-second-level collapse" id="collapseExamplePages">
@@ -61,7 +61,7 @@
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti"
                        data-parent="#exampleAccordion">
                         <i class="fa fa-fw fa-sitemap"></i>
-                        <span class="nav-link-text">Menu Levels</span>
+                        <span class="nav-link-text">Gestions des PV's</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseMulti">
                         <li>
@@ -97,7 +97,7 @@
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
                     <a class="nav-link" href="#">
                         <i class="fa fa-fw fa-link"></i>
-                        <span class="nav-link-text">Link</span>
+                        <span class="nav-link-text">Autre</span>
                     </a>
                 </li>
                 <!-- fin element 4 nav lateral-->
@@ -260,11 +260,11 @@
 
                 <!-- bar de recherche-->
                 <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0 mr-lg-2">
+                    <form method="post" class="form-inline my-2 my-lg-0 mr-lg-2"> {% csrf_token %}
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Search for...">
+                            <input class="form-control" type="text" placeholder="Rechercher un etudiant..." size="25">
                             <span class="input-group-append">
-                            <button class="btn btn-primary" type="button">
+                            <button class="btn btn-primary" type="submit">
                                 <i class="fa fa-search"></i>
                             </button>
                         </span>
