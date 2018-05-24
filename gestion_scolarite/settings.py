@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
+    'crispy_forms',
+    'accounts',
     'dashboard',
     'home_page',
 ]
@@ -124,3 +125,9 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+# my_project/settings.py
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"  # During development only
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+CRISPY_TEMPLATE_PACK = 'uni_form'

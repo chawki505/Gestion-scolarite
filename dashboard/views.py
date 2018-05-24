@@ -10,4 +10,4 @@ def dashbord_page(request):
         return render(request, 'dashboard/dashboard.html', {})
 
     else:
-        return redirect('login')
+        return redirect('login_account')

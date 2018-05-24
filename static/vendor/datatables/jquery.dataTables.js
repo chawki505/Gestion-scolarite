@@ -6561,7 +6561,7 @@
 	{
 		$(n)
 			.on( 'click.DT', oData, function (e) {
-					n.blur(); // Remove focus outline for mouse users
+					n.blur(); // Remove focus outline for mouse accounts
 					fn(e);
 				} )
 			.on( 'keypress.DT', oData, function (e){
