@@ -35,9 +35,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_countries',
     'accounts',
     'dashboard',
     'home_page',
+    'inscriptions'
 ]
 
 MIDDLEWARE = [
@@ -104,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "fr-fr"
 
-TIME_ZONE = "Europe/Paris"
+TIME_ZONE = 'Africa/Algiers'
 
 USE_I18N = True
 

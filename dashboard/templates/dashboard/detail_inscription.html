@@ -1,0 +1,78 @@
+{% extends 'dashboard/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_home_page' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_liste_inscriptions' %}">Liste des inscriptions</a>
+        </li>
+        <li class="breadcrumb-item active">Detail inscription</li>
+    </ol>
+
+
+
+    <div class="row">
+        <div class="col-12">
+            <h3>Information de l'etudiant</h3>
+            <ul>
+                <li><strong>Matricule : </strong> {{ inscription.etudiant.id }}</li>
+                <li><strong>Date d'enregistrement</strong>
+                    : {{ inscription.etudiant.user.date_joined }}
+                </li>
+                <li><strong>Nom et prénom</strong>
+                    : {{ inscription.etudiant.user.first_name.capitalize }} {{ inscription.etudiant.user.last_name.upper }}
+                </li>
+                <li><strong>Sexe : </strong> {{ inscription.etudiant.sexe }}</li>
+                <li><strong>Né(e) le </strong>{{ inscription.etudiant.date_naissance }}
+                    <strong> à</strong> {{ inscription.etudiant.lieu_naissance.capitalize }}</li>
+
+                <li><strong>Adresse actuelle : </strong> {{ inscription.etudiant.adresse }}</li>
+                <li><strong>Nationalite : </strong>{{ inscription.etudiant.nationalite.name }}</li>
+                <li><strong>Télephone : </strong>{{ inscription.etudiant.telephone }}</li>
+                <li><strong>Email : </strong> <a
+                        href="mailto:{{ inscription.etudiant.user.email }}">{{ inscription.etudiant.user.email }}</a>
+                </li>
+            </ul>
+            <hr>
+            <h3>Detail de l'inscription</h3>
+            <ul>
+                <li><strong>Numero d'inscription</strong>
+                    : {{ inscription.id }}
+                </li>
+                <li><strong>Date d'inscription</strong>
+                    : {{ inscription.date_inscription }}
+                </li>
+
+                <li><strong>Est inscrit(e) en</strong>
+                    : {{ inscription.annee_specialite.nom }}</li>
+                <li><strong>Domaine</strong>
+                    : {{ inscription.annee_specialite.specialite.cycle.departement.domaine.nom }}</li>
+                <li><strong>Filière</strong>
+                    : {{ inscription.annee_specialite.specialite.cycle.departement.nom }}</li>
+                <li><strong>Spécialité</strong>
+                    : {{ inscription.annee_specialite.specialite.nom }}</li>
+
+                <li><strong>Cycle</strong> : {{ inscription.annee_specialite.specialite.cycle.nom }}</li>
+
+                <li><strong>De l'année universitaire </strong>: {{ inscription.annee_universitaire.nom }}</li>
+
+            </ul>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

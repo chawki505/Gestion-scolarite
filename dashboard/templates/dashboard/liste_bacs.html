@@ -1,0 +1,106 @@
+{% extends 'dashboard/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_home_page' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Liste des bacs</li>
+    </ol>
+
+
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> Liste des bacs des etudiants
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+
+                        <th>ID</th>
+                        <th>N°</th>
+                        <th>Date d'ajout</th>
+
+
+                        <th>Nom et prenom etudiant</th>
+                        <th>Sexe</th>
+
+                        <th>Date et Lieu de naissance</th>
+
+                        <th>Nationalité</th>
+
+                        <th> Note</th>
+                        <th>Mention</th>
+                        <th>Session</th>
+
+
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>N°</th>
+                        <th>Date d'ajout</th>
+
+
+                        <th>Nom et prenom etudiant</th>
+                        <th>Sexe</th>
+
+                        <th>Date et Lieu de naissance</th>
+
+                        <th>Nationalité</th>
+
+                        <th> Note</th>
+                        <th>Mention</th>
+                        <th>Session</th>
+
+                    </tr>
+                    </tfoot>
+                    <tbody>
+
+                    {% for bac in bacs %}
+
+                        <tr>
+                            <td>{{ bac.id }}</td>
+                            <td>{{ bac.numero }}</td>
+
+                            <td>{{ bac.date_ajout }}</td>
+                            <td>{{ bac.etudiant.user.first_name }} {{ bac.etudiant.user.last_name }}</td>
+
+                            <td> {{ bac.etudiant.sexe }}</td>
+                            <td> {{ bac.etudiant.date_naissance }}
+                                à {{ bac.etudiant.lieu_naissance.capitalize }}</td>
+                            <td> {{ bac.etudiant.nationalite.name }}</td>
+                            <td> {{ bac.note }}</td>
+                            <td> {{ bac.mention }}</td>
+                            <td> {{ bac.session }}</td>
+
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated {{ bacs.last.date_ajout }}</div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}
