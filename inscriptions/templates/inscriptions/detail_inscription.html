@@ -1,0 +1,140 @@
+{% extends 'dashboard/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_home_page' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_liste_inscriptions' %}">Liste des inscriptions</a>
+        </li>
+        <li class="breadcrumb-item active">Detail inscription</li>
+    </ol>
+
+
+
+    <div class="row">
+        <div class="col">
+            <h3 class="text-center">Information de l'etudiant</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Matricule : </strong> {{ inscription.etudiant.id }}</li>
+                <li class="list-group-item"><strong>Date d'enregistrement</strong>
+                    : {{ inscription.etudiant.user.date_joined }}
+                </li>
+                <li class="list-group-item"><strong>Nom et prénom</strong>
+                    : {{ inscription.etudiant.user.first_name.capitalize }} {{ inscription.etudiant.user.last_name.upper }}
+                </li>
+                <li class="list-group-item"><strong>Sexe : </strong> {{ inscription.etudiant.sexe }}</li>
+                <li class="list-group-item"><strong>Né(e) le </strong>{{ inscription.etudiant.date_naissance }}
+                    <strong> à</strong> {{ inscription.etudiant.lieu_naissance.capitalize }}</li>
+
+                <li class="list-group-item"><strong>Adresse actuelle : </strong> {{ inscription.etudiant.adresse }}</li>
+                <li class="list-group-item"><strong>Nationalite : </strong>{{ inscription.etudiant.nationalite.name }}
+                </li>
+                <li class="list-group-item"><strong>Télephone : </strong>{{ inscription.etudiant.telephone }}</li>
+                <li class="list-group-item"><strong>Email : </strong> <a
+                        href="mailto:{{ inscription.etudiant.user.email }}">{{ inscription.etudiant.user.email }}</a>
+                </li>
+                <a target="_blank" class="list-group-item list-group-item-action active text-center"
+                   href="{% url 'certificat_scolarite' pk=inscription.id %}"><span>Certificat scolarite</span></a>
+            </ul>
+        </div>
+
+        <div class="col">
+            <h3 class="text-center">Detail de l'inscription</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Numero d'inscription</strong>
+                    : {{ inscription.id }}
+                </li>
+                <li class="list-group-item"><strong>Date d'inscription</strong>
+                    : {{ inscription.date_inscription }}
+                </li>
+
+                <li class="list-group-item"><strong>Est inscrit(e) en</strong>
+                    : {{ inscription.annee_specialite.nom }}</li>
+                <li class="list-group-item"><strong>Domaine</strong>
+                    : {{ inscription.annee_specialite.specialite.cycle.departement.domaine.nom }}</li>
+                <li class="list-group-item"><strong>Filière</strong>
+                    : {{ inscription.annee_specialite.specialite.cycle.departement.nom }}</li>
+                <li class="list-group-item"><strong>Spécialité</strong>
+                    : {{ inscription.annee_specialite.specialite.nom }}</li>
+
+                <li class="list-group-item"><strong>Cycle</strong>
+                    : {{ inscription.annee_specialite.specialite.cycle.nom }}</li>
+
+                <li class="list-group-item"><strong>De l'année
+                    universitaire </strong>: {{ inscription.annee_universitaire.nom }}</li>
+                <a target="_blank" class="list-group-item list-group-item-action active text-center"
+                   href="{% url 'attestation_inscription' pk=inscription.id %}"><span>Attestation {{ inscription.categorie }}</span></a>
+
+
+            </ul>
+
+
+        </div>
+
+    </div>
+
+
+    <hr>
+
+    <div class="row mt-5">
+        <div class="col">
+            <h3 class="text-center"> Semestres</h3>
+
+        </div>
+    </div>
+
+    <div class="row">
+        {% for semestre in semestres %}
+
+            <div class="col">
+                <h5 class="text-center">{{ semestre.nom }}</h5>
+
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Unité</th>
+                        <th scope="col">Nom module</th>
+                        <th scope="col">Coefficient</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for unite in semestre.unites_semestre.all %}
+                        {% for module in unite.modules_unite.all %}
+                            <tr>
+                                {% ifchanged %}
+                                    <th scope="col" rowspan="{{ unite.modules_unite.count }}">{{ unite.nom }}</th>
+                                {% endifchanged %}
+
+                                <td> {{ module.nom }}</td>
+                                <td> {{ module.coefficient }}</td>
+                            </tr>
+                        {% endfor %}
+
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+
+
+
+    <hr>
+
+
+
+
+{% endblock %}

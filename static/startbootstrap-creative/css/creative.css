@@ -179,7 +179,8 @@ img::-moz-selection {
 header.masthead {
     padding-top: 10rem;
     padding-bottom: calc(10rem - 56px);
-    background-image: url("../img/header.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.1)), url("../img/header16.png");
+
     background-position: center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;

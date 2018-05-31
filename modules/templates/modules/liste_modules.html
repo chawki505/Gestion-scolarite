@@ -1,0 +1,88 @@
+{% extends 'dashboard/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_home_page' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Liste des modules</li>
+    </ol>
+
+
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> Liste des modules
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Libellé</th>
+                        <th>Unité</th>
+                        <th>Semestre</th>
+                        <th>Année</th>
+                        <th>Specialite</th>
+
+                        <th>Action</th>
+
+
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Libellé</th>
+                        <th>Unité</th>
+                        <th>Semestre</th>
+                        <th>Année</th>
+                        <th>Specialite</th>
+
+                        <th>Action</th>
+
+                    </tr>
+                    </tfoot>
+                    <tbody>
+
+                    {% for module in modules %}
+
+                        <tr>
+                            <td>{{ module.id }}</td>
+                            <td>{{ module.nom }}</td>
+                            <td>{{ module.unite.nom }}</td>
+                            <td>{{ module.unite.semestre.nom }}</td>
+                            <td>{{ module.unite.semestre.annee_specialite.nom }}</td>
+                            <td>{{ module.unite.semestre.annee_specialite.specialite.nom }}</td>
+
+
+                            <td><a target="_blank" href="{% url 'pv_module' pk=module.id %}">Selectioner </a></td>
+
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated {{ etudiants.last.user.date_joined }}</div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

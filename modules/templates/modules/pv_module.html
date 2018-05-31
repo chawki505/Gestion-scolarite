@@ -1,0 +1,80 @@
+{% extends 'modules/base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+
+
+    <div class="row">
+        <div class="col">
+            <img src="{% static 'img/logo_univ2.png' %}" width="150px">
+
+            <h4>Université d'Oran 1 Ahmed Ben Bella</h4>
+
+            <h5>{{ notes.first.module.unite.semestre.annee_specialite.specialite.cycle.departement.domaine.faculte.nom }}</h5>
+            <h5> Département
+                : {{ notes.first.module.unite.semestre.annee_specialite.specialite.cycle.departement.nom }}</h5>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col text-center">
+
+            <h1>{{ notes.first.module.nom }}</h1>
+            <h3>Année universitaire {{ notes.first.annee_universitaire }}</h3>
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="row">
+        <div class="col">
+
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">N°</th>
+                    <th scope="col">Nom etudiant</th>
+                    <th scope="col">Prenom etudiant</th>
+                    <th scope="col">Note</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for note in notes %}
+                    <tr>
+                        <td scope="col">{{ note.id }}</td>
+                        <td scope="col">{{ note.etudiant.user.first_name.capitalize }}</td>
+                        <td scope="col">{{ note.etudiant.user.last_name.upper }}</td>
+                        <td scope="col">{{ note.note }}</td>
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+
+            <ul class="list-group">
+
+                <li class="list-group-item"> Nombre d'etudiants : {{ notes.all.count }}</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'dashboard/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_home_page' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_liste_etudiants' %}">Liste des etudiants</a>
+        </li>
+        <li class="breadcrumb-item active">Detail Etudiant</li>
+    </ol>
+
+
+
+    <div class="row">
+        <div class="col">
+            <h3 class="text-center">Information de l'etudiant</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Matricule : </strong> {{ etudiant.id }}</li>
+                <li class="list-group-item"><strong>Date d'enregistrement</strong>
+                    : {{ etudiant.user.date_joined }}
+                </li>
+                <li class="list-group-item"><strong>Nom et prénom</strong>
+                    : {{ etudiant.user.first_name.capitalize }} {{ etudiant.user.last_name.upper }}
+                </li>
+                <li class="list-group-item"><strong>Sexe : </strong> {{ etudiant.sexe }}</li>
+                <li class="list-group-item"><strong>Né(e) le </strong>{{ etudiant.date_naissance }}
+                    <strong> à</strong> {{ etudiant.lieu_naissance.capitalize }}</li>
+
+                <li class="list-group-item"><strong>Adresse actuelle : </strong> {{ etudiant.adresse }}</li>
+                <li class="list-group-item"><strong>Nationalite : </strong>{{ etudiant.nationalite.name }}
+                </li>
+                <li class="list-group-item"><strong>Télephone : </strong>{{ etudiant.telephone }}</li>
+                <li class="list-group-item"><strong>Email : </strong> <a
+                        href="mailto:{{ etudiant.user.email }}">{{ etudiant.user.email }}</a>
+                </li>
+                <a target="_blank" class="list-group-item list-group-item-action active text-center"
+                   href="{% url 'certificat_scolarite' pk=inscriptions.last.id %}"><span>Certificat scolarite</span></a>
+            </ul>
+        </div>
+
+
+        <div class="col">
+            <h3 class="text-center">Historique inscriptions</h3>
+            <ul class="list-group">
+                {% for inscription in inscriptions %}
+
+                    <li class="list-group-item"><strong>Année universitaire
+                        : </strong>{{ inscription.annee_universitaire }}
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>Date
+                                : </strong> {{ inscription.date_inscription }}</li>
+
+                            <li class="list-group-item"><strong>Catégorie
+                                : </strong>{{ inscription.categorie }}</li>
+
+                            <li class="list-group-item"><strong>Spécialite
+                                : </strong>{{ inscription.annee_specialite.specialite.nom }}</li>
+
+                            <li class="list-group-item"><strong>Année
+                                : </strong>{{ inscription.annee_specialite.nom }}</li>
+
+
+                            <a target="_blank" class="list-group-item list-group-item-action active text-center"
+                               href="{% url 'attestation_inscription' pk=inscription.id %}"><span>Attestation {{ inscription.categorie }}</span></a>
+
+
+                        </ul>
+                    </li>
+
+
+
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}

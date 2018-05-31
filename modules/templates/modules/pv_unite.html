@@ -1,0 +1,98 @@
+{% extends 'modules/base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+
+
+    <div class="row">
+        <div class="col">
+            <img src="{% static 'img/logo_univ2.png' %}" width="150px">
+
+            <h4>Université d'Oran 1 Ahmed Ben Bella</h4>
+
+            <h5>{{ unite.semestre.annee_specialite.specialite.cycle.departement.domaine.faculte.nom }}</h5>
+            <h5> Département
+                : {{ unite.semestre.annee_specialite.specialite.cycle.departement.nom }}</h5>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col text-center">
+
+            <h1>{{ unite.nom }}</h1>
+            <h3>Année universitaire {{ annee_universitaire.nom }}</h3>
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="row">
+        <div class="col">
+
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">N°</th>
+                    <th scope="col">Nom etudiant</th>
+                    <th scope="col">Prenom etudiant</th>
+
+                    {% for module in modules %}
+                        <th scope="col">Note {{ module.nom }}</th>
+                    {% endfor %}
+
+                    <th scope="col">Moyenne</th>
+
+
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr>
+                    <td scope="col">1</td>
+                    <td scope="col">chouib</td>
+                    <td scope="col">chawki</td>
+                    {% for module in modules %}
+
+
+                        {% for note in module.notes_module.all %}
+
+                            <td scope="col">{{ note.note }}</td>
+
+                        {% endfor %}
+
+
+                    {% endfor %}
+
+                    <td scope="col">moy</td>
+
+
+                </tr>
+                </tbody>
+
+            </table>
+
+
+            <ul class="list-group">
+
+                <li class="list-group-item"> Nombre d'etudiants : {{ notes.all.count }}</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

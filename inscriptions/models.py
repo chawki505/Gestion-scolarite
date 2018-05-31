@@ -5,122 +5,6 @@ from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
-# Create your models here.
-class Annee_universitaire(models.Model):
-    nom = models.CharField(max_length=256)
-
-    def __str__(self):
-        return self.nom
-
-    class Meta:
-        db_table = "annee_universitaire"
-        verbose_name = "Annee_universitaire"
-        verbose_name_plural = "Annees_universitaire"
-
-
-class Etablisement(models.Model):
-    nom = models.CharField(max_length=256)
-
-    def __str__(self):
-        return self.nom
-
-    class Meta:
-        db_table = "etablisement"
-        verbose_name = "Etablisement"
-        verbose_name_plural = "Etablisements"
-
-
-class Faculte(models.Model):
-    nom = models.CharField(max_length=256)
-    etablissement = models.ForeignKey(Etablisement)
-
-    def __str__(self):
-        return self.nom + " Etablisement : " + self.etablissement.nom
-
-    class Meta:
-        db_table = "faculte"
-        verbose_name = "Faculte"
-        verbose_name_plural = "Facultes"
-
-
-class Domaine(models.Model):
-    nom = models.CharField(max_length=256)
-    faculte = models.ForeignKey(Faculte)
-
-    def __str__(self):
-        return self.nom + " Faculte : " + self.faculte.nom
-
-    class Meta:
-        db_table = "domaine"
-        verbose_name = "Domaine"
-        verbose_name_plural = "Domaines"
-
-
-class Departement(models.Model):
-    nom = models.CharField(max_length=256)
-    domaine = models.ForeignKey(Domaine)
-
-    def __str__(self):
-        return self.nom + " Domaine : " + self.domaine.nom
-
-    class Meta:
-        db_table = "departement"
-        verbose_name = "Departement"
-        verbose_name_plural = "Departements"
-
-
-class Cycle(models.Model):
-    nom = models.CharField(max_length=256)
-    departement = models.ForeignKey(Departement)
-
-    def __str__(self):
-        return self.nom + " Departement : " + self.departement.nom
-
-    class Meta:
-        db_table = "cycle"
-        verbose_name = "Cycle"
-        verbose_name_plural = "Cycles"
-
-
-class Specialite(models.Model):
-    nom = models.CharField(max_length=256)
-    cycle = models.ForeignKey(Cycle)
-
-    def __str__(self):
-        return self.nom + " cycle : " + self.cycle.nom
-
-    class Meta:
-        db_table = "specialite"
-        verbose_name = "Specialite"
-        verbose_name_plural = "Specialites"
-
-
-class Annee_specialite(models.Model):
-    nom = models.CharField(max_length=256)
-    specialite = models.ForeignKey(Specialite)
-
-    def __str__(self):
-        return self.nom + " Specialité : " + self.specialite.nom
-
-    class Meta:
-        db_table = "annee_specialite"
-        verbose_name = "Annee_specialite"
-        verbose_name_plural = "Annees_specialite"
-
-
-class Semestre(models.Model):
-    nom = models.CharField(max_length=256)
-    annee_specialite = models.ForeignKey(Annee_specialite)
-
-    def __str__(self):
-        return self.nom + " Année specialité : " + self.annee_specialite.nom
-
-    class Meta:
-        db_table = "semestre"
-        verbose_name = "Semestre"
-        verbose_name_plural = "Semestres"
-
-
 class Etudiant(models.Model):
     user = models.OneToOneField('auth.User')
     sexe = models.CharField(
@@ -172,15 +56,37 @@ class Bac(models.Model):
 
 
 class Inscription(models.Model):
-    etudiant = models.ForeignKey(Etudiant)
-    annee_universitaire = models.ForeignKey(Annee_universitaire)
-    annee_specialite = models.ForeignKey(Annee_specialite)
+    etudiant = models.ForeignKey(Etudiant, related_name='inscriptions_etudiant')
+    annee_universitaire = models.ForeignKey('etablissements.Annee_universitaire',
+                                            related_name='inscriptions_annee_universitaire')
+    annee_specialite = models.ForeignKey('modules.Annee_specialite')
     date_inscription = models.DateTimeField(auto_now_add=True)
+    categorie = models.CharField(choices=(('Inscription', 'Inscription'), ('Reinscription', 'Reinscription')),
+                                 max_length=100, blank=True)
 
     def __str__(self):
-        return self.etudiant.__str__() + " Specialité : " + self.annee_specialite.__str__() + " Année universitaire : " + self.annee_universitaire.nom
+        return self.etudiant.__str__() + " Specialité : " + self.annee_specialite.__str__() + \
+               " Année universitaire : " + self.annee_universitaire.nom
 
     class Meta:
-        db_table = "etudiant_inscription_specialite"
-        verbose_name = "Inscription"
-        verbose_name_plural = "Inscriptions"
+        db_table = "etudiant_inscription"
+        verbose_name = "inscription"
+        verbose_name_plural = "inscriptions"
+
+
+class Note(models.Model):
+    inscription_etudiant = models.ForeignKey(Inscription, related_name='notes_inscription_etudiant', null=True,
+                                             blank=True)
+    module = models.ForeignKey('modules.Module', related_name='notes_module')
+    note = models.FloatField()
+    annee_universitaire = models.ForeignKey('etablissements.Annee_universitaire',
+                                            related_name='notes_annee_universitaire')
+
+    def __str__(self):
+        return self.inscription_etudiant.etudiant.__str__() + " Module : " + self.module.nom + \
+               ", Note : " + self.note.__str__()
+
+    class Meta:
+        db_table = "inscription_etudiant_module_note"
+        verbose_name = "Note"
+        verbose_name_plural = "Notes"

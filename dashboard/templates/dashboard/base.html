@@ -30,7 +30,17 @@
 
 
 {% block navbar %}
-    {% include 'dashboard/-navbar.html' %}
+
+    {% if user.groups.get.name == 'Administrateur' %}
+        {% include 'dashboard/navbar/_navbar_admin.html' %}
+    {% else %}
+        {% include 'dashboard/navbar/_navbar_etudiant.html' %}
+
+
+    {% endif %}
+
+
+
 {% endblock %}
 
 

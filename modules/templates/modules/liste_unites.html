@@ -1,0 +1,92 @@
+{% extends 'dashboard/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_home_page' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Liste des Unites</li>
+    </ol>
+
+
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> Liste des Unites
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Libellé</th>
+                        <th>Modules</th>
+                        <th>Semestre</th>
+                        <th>Année</th>
+                        <th>Specialite</th>
+
+                        <th>Action</th>
+
+
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Libellé</th>
+                        <th>Modules</th>
+                        <th>Semestre</th>
+                        <th>Année</th>
+                        <th>Specialite</th>
+
+                        <th>Action</th>
+
+                    </tr>
+                    </tfoot>
+                    <tbody>
+
+                    {% for unite in unites %}
+
+                        <tr>
+                            <td>{{ unite.id }}</td>
+                            <td>{{ unite.nom }}</td>
+                            <td> {% for module in unite.modules_unite.all %}
+                                <ul class="list-group">
+                                    <li class="list-group-item"> {{ module.nom }}</li>
+                                </ul>
+                            {% endfor %}
+                            </td>
+                            <td>{{ unite.semestre.nom }}</td>
+                            <td>{{ unite.semestre.annee_specialite.nom }}</td>
+                            <td>{{ unite.semestre.annee_specialite.specialite.nom }}</td>
+
+
+                            <td><a target="_blank" href="{% url 'pv_unite' pk=unite.id %}">Selectioner </a></td>
+
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}
