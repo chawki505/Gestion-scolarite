@@ -7,18 +7,20 @@ from django.db import models
 # Create your models here.
 class Annee_universitaire(models.Model):
     nom = models.CharField(max_length=256)
+    date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nom
 
     class Meta:
         db_table = "annee_universitaire"
-        verbose_name = "Annee_universitaire"
-        verbose_name_plural = "Annees_universitaire"
+        verbose_name = "Annee universitaire"
+        verbose_name_plural = "Annees universitaire"
 
 
 class Etablisement(models.Model):
     nom = models.CharField(max_length=256)
+    date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nom
@@ -31,7 +33,8 @@ class Etablisement(models.Model):
 
 class Faculte(models.Model):
     nom = models.CharField(max_length=256)
-    etablissement = models.ForeignKey(Etablisement)
+    etablissement = models.ForeignKey(Etablisement, related_name='facultes')
+    date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nom + " Etablisement : " + self.etablissement.nom
@@ -44,7 +47,8 @@ class Faculte(models.Model):
 
 class Domaine(models.Model):
     nom = models.CharField(max_length=256)
-    faculte = models.ForeignKey(Faculte)
+    faculte = models.ForeignKey(Faculte, related_name='domaines')
+    date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nom + " Faculte : " + self.faculte.nom
@@ -57,7 +61,11 @@ class Domaine(models.Model):
 
 class Departement(models.Model):
     nom = models.CharField(max_length=256)
-    domaine = models.ForeignKey(Domaine)
+    domaine = models.ForeignKey(Domaine, related_name='departements')
+
+    chef = models.OneToOneField('enseignants.Enseignant', related_name='chaf_departement')
+
+    date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nom + " Domaine : " + self.domaine.nom

@@ -56,26 +56,17 @@
 
                 <tbody>
 
-                <tr>
-                    <td scope="col">1</td>
-                    <td scope="col">chouib</td>
-                    <td scope="col">chawki</td>
-                    {% for module in modules %}
-
-
-                        {% for note in module.notes_module.all %}
-
-                            <td scope="col">{{ note.note }}</td>
-
+                {% for value in student %}
+                    <tr>
+                        {% for foo in value.items %}
+                            <th scope="col">{{ foo.1 }}</th>
                         {% endfor %}
 
+                    </tr>
 
-                    {% endfor %}
-
-                    <td scope="col">moy</td>
+                {% endfor %}
 
 
-                </tr>
                 </tbody>
 
             </table>

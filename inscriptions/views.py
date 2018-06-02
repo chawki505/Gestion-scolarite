@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import *
+from etablissements.models import Annee_universitaire
 
 
 # Create your views here.
@@ -8,7 +9,10 @@ from .models import *
 
 def dashboard_liste_inscriptions(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Administrateur').exists():
-        inscriptions = Inscription.objects.all()
+
+        # get only inscriptions in last annee univ
+        annee_univ = Annee_universitaire.objects.all().last()
+        inscriptions = Inscription.objects.filter(annee_universitaire=annee_univ)
 
         return render(request, 'inscriptions/liste_inscriptions.html',
                       {'inscriptions': inscriptions})
@@ -19,8 +23,10 @@ def dashboard_liste_inscriptions(request):
 
 def dashboard_detail_inscription(request, pk):
     if request.user.is_authenticated and request.user.groups.filter(name='Administrateur').exists():
+
         inscription = Inscription.objects.get(pk=pk)
-        semestres = inscription.annee_specialite.semestres_annee_specialite.all()
+
+        semestres = inscription.parcours.semestres.all()
 
         return render(request, 'inscriptions/detail_inscription.html',
                       {'inscription': inscription,
@@ -43,18 +49,24 @@ def dashboard_liste_etudiants(request):
 
 
 def dashboard_detail_etudiant(request, pk):
-    if request.user.is_authenticated and request.user.groups.filter(name='Administrateur').exists():
+    if request.user.is_authenticated:
 
-        etudiant = Etudiant.objects.get(pk=pk)
-        inscriptions = etudiant.inscriptions_etudiant.all()
+        if request.user.groups.filter(name='Administrateur').exists() or \
+                (request.user.groups.filter(name='Etudiants').exists() and
+                 get_object_or_404(Etudiant, pk=pk).__eq__(request.user.etudiant)):
 
-        contexe = {'etudiant': etudiant,
-                   'inscriptions': inscriptions,
+            etudiant = Etudiant.objects.get(pk=pk)
+            inscriptions = etudiant.inscriptions.all()
 
-                   }
+            bac = etudiant.bac
 
-        return render(request, 'inscriptions/detail_etudiant.html', contexe)
-
+            contexe = {'etudiant': etudiant,
+                       'inscriptions': inscriptions,
+                       'bac': bac,
+                       }
+            return render(request, 'inscriptions/detail_etudiant.html', contexe)
+        else:
+            return redirect('login_account')
     else:
         return redirect('login_account')
 
@@ -71,18 +83,30 @@ def dashboard_liste_bac(request):
 
 
 def attestation_inscription(request, pk):
-    if request.user.is_authenticated and request.user.groups.filter(name='Administrateur').exists():
-        inscription = Inscription.objects.get(pk=pk)
+    if request.user.is_authenticated:
 
-        return render(request, 'inscriptions/doc/attestation_inscription.html', {'inscription': inscription})
+        if request.user.groups.filter(name='Administrateur').exists() or \
+                (request.user.groups.filter(name='Etudiants').exists() and
+                 get_object_or_404(Etudiant, pk=pk).__eq__(request.user.etudiant)):
+
+            inscription = Inscription.objects.get(pk=pk)
+            return render(request, 'inscriptions/doc/attestation_inscription.html', {'inscription': inscription})
+        else:
+            return redirect('login_account')
     else:
         return redirect('login_account')
 
 
 def certificat_scolarite(request, pk):
-    if request.user.is_authenticated and request.user.groups.filter(name='Administrateur').exists():
-        inscription = Inscription.objects.get(pk=pk)
-        return render(request, 'inscriptions/doc/certificat_scolarite.html', {'inscription': inscription})
+    if request.user.is_authenticated:
 
+        if request.user.groups.filter(name='Administrateur').exists() or \
+                (request.user.groups.filter(name='Etudiants').exists() and
+                 get_object_or_404(Etudiant, pk=pk).__eq__(request.user.etudiant)):
+
+            inscription = Inscription.objects.get(pk=pk)
+            return render(request, 'inscriptions/doc/certificat_scolarite.html', {'inscription': inscription})
+        else:
+            return redirect('login_account')
     else:
         return redirect('login_account')

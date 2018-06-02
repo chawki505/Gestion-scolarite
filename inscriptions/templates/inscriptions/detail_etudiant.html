@@ -47,11 +47,26 @@
 
 
         <div class="col">
+            <h3 class="text-center">Bac de l'etudiant</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Numéro : </strong> {{ bac.numero }}</li>
+                <li class="list-group-item"><strong>Note : </strong> {{ bac.note }}</li>
+                <li class="list-group-item"><strong>Mention : </strong> {{ bac.mention }}</li>
+                <li class="list-group-item"><strong>Session : </strong> {{ bac.session }}</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col">
             <h3 class="text-center">Historique inscriptions</h3>
+
             <ul class="list-group">
                 {% for inscription in inscriptions %}
 
-                    <li class="list-group-item"><strong>Année universitaire
+                    <lyi class="list-group-item"><strong>Année universitaire
                         : </strong>{{ inscription.annee_universitaire }}
                         <ul class="list-group">
                             <li class="list-group-item"><strong>Date
@@ -70,16 +85,16 @@
                             <a target="_blank" class="list-group-item list-group-item-action active text-center"
                                href="{% url 'attestation_inscription' pk=inscription.id %}"><span>Attestation {{ inscription.categorie }}</span></a>
 
-
                         </ul>
-                    </li>
-
-
-
+                    </lyi>
                 {% endfor %}
 
             </ul>
+
+
         </div>
+
+
     </div>
 
 

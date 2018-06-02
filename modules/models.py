@@ -3,13 +3,12 @@ from django.db import models
 
 # Create your models here.
 
-
 class Cycle(models.Model):
     nom = models.CharField(max_length=256)
-    departement = models.ForeignKey('etablissements.Departement')
+    date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.nom + " Departement : " + self.departement.nom
+        return self.nom
 
     class Meta:
         db_table = "cycle"
@@ -19,7 +18,11 @@ class Cycle(models.Model):
 
 class Specialite(models.Model):
     nom = models.CharField(max_length=256)
+    departement = models.ForeignKey('etablissements.Departement', related_name='specialites')
     cycle = models.ForeignKey(Cycle, related_name='specialites')
+    responsable = models.OneToOneField('enseignants.Enseignant', related_name='responsable_specialite')
+
+    date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nom + " cycle : " + self.cycle.nom
@@ -30,25 +33,28 @@ class Specialite(models.Model):
         verbose_name_plural = "Specialites"
 
 
-class Annee_specialite(models.Model):
+class Parcours(models.Model):
     nom = models.CharField(max_length=256)
-    specialite = models.ForeignKey(Specialite, related_name='annees_specialite')
+    specialite = models.ForeignKey(Specialite, related_name='parcours')
+    responsable = models.OneToOneField('enseignants.Enseignant', related_name='responsable_parcours')
+    date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.nom + " Specialité : " + self.specialite.nom
+        return self.nom + " Specialite : " + self.specialite.nom
 
     class Meta:
-        db_table = "annee_specialite"
-        verbose_name = "Annee_specialite"
-        verbose_name_plural = "Annees_specialite"
+        db_table = "parcours"
+        verbose_name = "Parcours"
+        verbose_name_plural = "Parcours"
 
 
 class Semestre(models.Model):
     nom = models.CharField(max_length=256)
-    annee_specialite = models.ForeignKey(Annee_specialite, related_name='semestres_annee_specialite')
+    parcours = models.ForeignKey(Parcours, related_name='semestres')
+    date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.nom + " Année specialité : " + self.annee_specialite.nom
+        return self.nom + " Année specialité : " + self.parcours.nom
 
     class Meta:
         db_table = "semestre"
@@ -58,7 +64,9 @@ class Semestre(models.Model):
 
 class Unite(models.Model):
     nom = models.CharField(max_length=256)
-    semestre = models.ForeignKey(Semestre, related_name='unites_semestre')
+    semestre = models.ForeignKey(Semestre, related_name='unites')
+    enseignant = models.ForeignKey('enseignants.Enseignant', related_name='responsable_unite', null=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "unite"
@@ -71,8 +79,10 @@ class Unite(models.Model):
 
 class Module(models.Model):
     nom = models.CharField(max_length=256)
-    unite = models.ForeignKey(Unite, related_name='modules_unite')
-    coefficient = models.IntegerField()
+    unite = models.ForeignKey(Unite, related_name='modules')
+    coefficient = models.IntegerField(choices=((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)))
+    enseignant = models.ForeignKey('enseignants.Enseignant', related_name='responsable_module', null=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "module"

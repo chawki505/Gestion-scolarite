@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect
 
 from .models import *
 
+from inscriptions.models import *
+
 from inscriptions.models import Note
 
 from etablissements.models import Annee_universitaire
+
+from django.db.models import Q
 
 
 # Create your views here.
@@ -25,7 +29,7 @@ def pv_module(request, pk):
 
         module = Module.objects.get(pk=pk)
 
-        notes = module.notes_module.all()
+        notes = module.notes.all()
 
         context = {
             'notes': notes,
@@ -49,18 +53,40 @@ def liste_unites(request):
 def pv_unite(request, pk):
     if request.user.is_authenticated and request.user.groups.filter(name='Administrateur').exists():
 
+        # getting the unity
         unite = Unite.objects.get(pk=pk)
 
-        modules = unite.modules_unite.all()
+        # getting all modules
+        modules = unite.modules.all()
 
-        annee_universitaire = Annee_universitaire.objects.all().last()
+        # getting the inscriptions
+        annee_univ = Annee_universitaire.objects.all().last()
+        inscriptions = Inscription.objects.filter(annee_universitaire=annee_univ)
 
-        context = {
-            'unite': unite,
-            'annee_universitaire': annee_universitaire,
-            'modules': modules,
-        }
+        student_list = []
+        for inscription in inscriptions:
+            # counter and dictionary initialisation
+            moyenne = 0
+            coef = 0
+            moyenne_dict = dict()
 
+            # unit average computation
+            for module in modules:
+                note = Note.objects.get(Q(inscription=inscription) & Q(module=module))
+                # if the student has this module
+                if note is not None and note.note is not None:
+                    moyenne += note.note * module.coefficient  # counting
+                    coef += module.coefficient
+
+            # calculate the average
+            moyenne = moyenne / coef
+            # build the dictionary
+            moyenne_dict['etudiant'] = inscription.etudiant
+            moyenne_dict['moyenne'] = moyenne
+            # add it on the array
+            student_list.append(moyenne_dict)
+        print(student_list)
+        context = {'student': student_list}
         return render(request, 'modules/pv_unite.html', context)
     else:
         return redirect('login_account')

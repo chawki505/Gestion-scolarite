@@ -107,11 +107,11 @@
 
                     <tbody>
 
-                    {% for unite in semestre.unites_semestre.all %}
-                        {% for module in unite.modules_unite.all %}
+                    {% for unite in semestre.unites.all %}
+                        {% for module in unite.modules.all %}
                             <tr>
                                 {% ifchanged %}
-                                    <th scope="col" rowspan="{{ unite.modules_unite.count }}">{{ unite.nom }}</th>
+                                    <th scope="col" rowspan="{{ unite.modules.count }}">{{ unite.nom }}</th>
                                 {% endifchanged %}
 
                                 <td> {{ module.nom }}</td>
