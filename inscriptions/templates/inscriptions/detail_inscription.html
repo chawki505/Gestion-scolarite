@@ -24,10 +24,10 @@
             <ul class="list-group">
                 <li class="list-group-item"><strong>Matricule : </strong> {{ inscription.etudiant.id }}</li>
                 <li class="list-group-item"><strong>Date d'enregistrement</strong>
-                    : {{ inscription.etudiant.user.date_joined }}
+                    : {{ inscription.etudiant.date_creation }}
                 </li>
                 <li class="list-group-item"><strong>Nom et prénom</strong>
-                    : {{ inscription.etudiant.user.first_name.capitalize }} {{ inscription.etudiant.user.last_name.upper }}
+                    : {{ inscription.etudiant.nom.upper }} {{ inscription.etudiant.prenom.capitalize }}
                 </li>
                 <li class="list-group-item"><strong>Sexe : </strong> {{ inscription.etudiant.sexe }}</li>
                 <li class="list-group-item"><strong>Né(e) le </strong>{{ inscription.etudiant.date_naissance }}
@@ -52,20 +52,25 @@
                     : {{ inscription.id }}
                 </li>
                 <li class="list-group-item"><strong>Date d'inscription</strong>
-                    : {{ inscription.date_inscription }}
+                    : {{ inscription.date_creation }}
                 </li>
 
+                <li class="list-group-item"><strong>Type </strong>
+                    : {{ inscription.categorie }}
+                </li>
+
+
                 <li class="list-group-item"><strong>Est inscrit(e) en</strong>
-                    : {{ inscription.annee_specialite.nom }}</li>
+                    : {{ inscription.parcours.nom }}</li>
                 <li class="list-group-item"><strong>Domaine</strong>
-                    : {{ inscription.annee_specialite.specialite.cycle.departement.domaine.nom }}</li>
+                    : {{ inscription.parcours.specialite.departement.domaine.nom }}</li>
                 <li class="list-group-item"><strong>Filière</strong>
-                    : {{ inscription.annee_specialite.specialite.cycle.departement.nom }}</li>
+                    : {{ inscription.parcours.specialite.departement.nom }}</li>
                 <li class="list-group-item"><strong>Spécialité</strong>
-                    : {{ inscription.annee_specialite.specialite.nom }}</li>
+                    : {{ inscription.parcours.specialite.nom }}</li>
 
                 <li class="list-group-item"><strong>Cycle</strong>
-                    : {{ inscription.annee_specialite.specialite.cycle.nom }}</li>
+                    : {{ inscription.parcours.specialite.cycle.nom }}</li>
 
                 <li class="list-group-item"><strong>De l'année
                     universitaire </strong>: {{ inscription.annee_universitaire.nom }}</li>

@@ -59,13 +59,13 @@
                         <tr>
                             <td>{{ semestre.id }}</td>
                             <td>{{ semestre.nom }}</td>
-                            <td>{{ semestre.annee_specialite.specialite.cycle.nom }}</td>
-                            <td>{{ semestre.annee_specialite.specialite.nom }}</td>
+                            <td>{{ semestre.parcours.specialite.cycle.nom }}</td>
+                            <td>{{ semestre.parcours.specialite.nom }}</td>
 
-                            <td>{{ semestre.annee_specialite.nom }}</td>
+                            <td>{{ semestre.parcours.nom }}</td>
 
 
-                            <td><a target="_blank" href="#">Selectioner </a></td>
+                            <td><a target="_blank" href="{% url 'pv_semestre' pk=semestre.id %}">Selectioner </a></td>
 
 
                         </tr>

@@ -1,0 +1,38 @@
+{% extends 'dashboard/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_home_page' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'liste_messages_recu' %}">Mes messages</a>
+        </li>
+        <li class="breadcrumb-item active">Ecrire/modifier un messages</li>
+
+    </ol>
+
+
+    <h1>Message</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

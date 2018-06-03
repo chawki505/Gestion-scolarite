@@ -73,8 +73,8 @@
                             <td>{{ bac.id }}</td>
                             <td>{{ bac.numero }}</td>
 
-                            <td>{{ bac.date_ajout }}</td>
-                            <td>{{ bac.etudiant.user.first_name }} {{ bac.etudiant.user.last_name }}</td>
+                            <td>{{ bac.date_creation.date }}</td>
+                            <td>{{ bac.etudiant.nom.upper }} {{ bac.etudiant.prenom.capitalize }}</td>
 
                             <td> {{ bac.etudiant.sexe }}</td>
                             <td> {{ bac.etudiant.date_naissance }}
@@ -93,7 +93,7 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer small text-muted">Updated {{ bacs.last.date_ajout }}</div>
+        <div class="card-footer small text-muted">Updated {{ bacs.last.date_creation }}</div>
     </div>
     </div>
 

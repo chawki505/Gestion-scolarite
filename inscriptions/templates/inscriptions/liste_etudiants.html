@@ -69,10 +69,10 @@
 
                         <tr>
                             <td>{{ etudiant.id }}</td>
-                            <td>{{ etudiant.user.date_joined }}</td>
+                            <td>{{ etudiant.date_creation }}</td>
 
-                            <td>{{ etudiant.user.first_name.capitalize }}</td>
-                            <td>{{ etudiant.user.last_name.upper }}</td>
+                            <td>{{ etudiant.nom.upper }}</td>
+                            <td>{{ etudiant.prenom.capitalize }}</td>
 
                             <td> {{ etudiant.date_naissance }}</td>
                             <td> {{ etudiant.lieu_naissance.capitalize }}</td>

@@ -13,8 +13,8 @@
         <br>
         <h4>Université d'Oran 1 Ahmed Ben Bella</h4>
         <br>
-        <h5>{{ inscription.annee_specialite.specialite.cycle.departement.domaine.faculte.nom }}</h5>
-        <h5> Département : {{ inscription.annee_specialite.specialite.cycle.departement.nom }}</h5>
+        <h5>{{ inscription.parcours.specialite.departement.domaine.faculte.nom }}</h5>
+        <h5> Département : {{ inscription.parcours.specialite.departement.nom }}</h5>
     </div>
 
     <br><br>
@@ -26,39 +26,40 @@
 
 
     <div class="container contenu text-left">
-        <h5> Le chef de département {{ inscription.annee_specialite.specialite.cycle.departement.nom }}</h5>
+        <h5> Le chef de département informatique
+             {{ inscription.parcours.specialite.departement.chef.nom.upper }}
+            {{ inscription.parcours.specialite.departement.chef.prenom.capitalize }}</h5>
+
 
         <h5>Atteste que l'étudiant(e)</h5>
 
-
-        <p><strong>Nom</strong> : {{ inscription.etudiant.user.first_name.capitalize }} <strong>Prénom</strong>
-            : {{ inscription.etudiant.user.last_name.upper }} </p>
+        <p><strong>Nom</strong> : {{ inscription.etudiant.nom.capitalize }} <strong>Prénom</strong>
+            : {{ inscription.etudiant.prenom.upper }} </p>
 
         <p><strong>Né(e) le : </strong>{{ inscription.etudiant.date_naissance }}<strong> à</strong>
             : {{ inscription.etudiant.lieu_naissance.capitalize }}</p>
 
         <p><strong>Est inscrit(e) en</strong>
-            : {{ inscription.annee_specialite.nom }}
+            : {{ inscription.parcours.nom }}
             <strong>domaine</strong>
-            : {{ inscription.annee_specialite.specialite.cycle.departement.domaine.nom }}
+            : {{ inscription.parcours.specialite.departement.domaine.nom }}
             <strong>filière</strong>
-            : {{ inscription.annee_specialite.specialite.cycle.departement.nom }}
+            : {{ inscription.parcours.specialite.departement.nom }}
             <strong>spécialité</strong>
-            : {{ inscription.annee_specialite.specialite.nom }}</p>
+            : {{ inscription.parcours.specialite.nom }}</p>
 
-        <p><strong>Cycle</strong> : {{ inscription.annee_specialite.specialite.cycle.nom }}</p>
+        <p><strong>Cycle</strong> : {{ inscription.parcours.specialite.cycle.nom }}</p>
 
         <p><strong>De l'année universitaire </strong>: {{ inscription.annee_universitaire.nom }} <strong>poursuit
-            régulierement ses
-            études à ce jour</strong></p>
+            régulierement ses études à ce jour</strong></p>
 
         <p><strong>Sous le numéro </strong>: {{ inscription.etudiant.id }} <strong>Observation </strong>: </p>
 
         <br><br><br>
         <div class="text-right">
-            <p>Le {{ inscription.date_inscription }}</p>
+            <p>Le {{ inscription.date_creation.date }}</p>
             <p>Le Chef de Département
-                <br>{{ inscription.annee_cycle_specialite.specialite.departement.chef_departement }}
+                <br>
             </p>
         </div>
     </div>

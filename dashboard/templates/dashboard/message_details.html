@@ -1,0 +1,64 @@
+{% extends 'dashboard/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_home_page' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'liste_messages_recu' %}">Mes messages</a>
+        </li>
+        <li class="breadcrumb-item active">Details</li>
+    </ol>
+
+
+    <div class="row">
+
+        <div class="col">
+            <h2>Messages </h2>
+            <a href="{% url 'modifier_message' pk=message.id %}">Modifier message</a>
+            <ul class="list-group">
+
+                <li class="list-group-item"><strong>De : </strong>{{ message.auteur }}</li>
+                <li class="list-group-item"><strong>Titre : </strong> {{ message.titre }}</li>
+                <li class="list-group-item"><strong>Date : </strong> {{ message.created_date }}</li>
+                <li class="list-group-item"><strong>Message : </strong>{{ message.texte }}</li>
+                <a class="list-group-item list-group-item-action active text-center"
+                   href="{% url 'repondre_message' pk=message.id %}"><span>Repondre</span></a>
+            </ul>
+            <hr>
+            <h2>Reponses </h2>
+
+
+            {% if reponses %}
+                {% for reponse in reponses %}
+
+                    <ul class="list-group">
+
+                        <li class="list-group-item"><strong>De : </strong>{{ reponse.auteur }}</li>
+                        <li class="list-group-item"><strong>Titre : </strong> {{ reponse.titre }}</li>
+                        <li class="list-group-item"><strong>Date : </strong> {{ reponse.created_date }}</li>
+                        <li class="list-group-item"><strong>Reponse : </strong>{{ reponse.texte }}</li>
+                    </ul>
+                    <br>
+
+
+                {% endfor %}
+
+            {% else %}
+                <p> Pas de reponse pour l'instant</p>
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+
+
+
+{% endblock %}

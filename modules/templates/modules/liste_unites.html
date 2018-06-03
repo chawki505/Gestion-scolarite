@@ -58,15 +58,15 @@
                         <tr>
                             <td>{{ unite.id }}</td>
                             <td>{{ unite.nom }}</td>
-                            <td> {% for module in unite.modules_unite.all %}
+                            <td> {% for module in unite.modules.all %}
                                 <ul class="list-group">
                                     <li class="list-group-item"> {{ module.nom }}</li>
                                 </ul>
                             {% endfor %}
                             </td>
                             <td>{{ unite.semestre.nom }}</td>
-                            <td>{{ unite.semestre.annee_specialite.nom }}</td>
-                            <td>{{ unite.semestre.annee_specialite.specialite.nom }}</td>
+                            <td>{{ unite.semestre.parcours.nom }}</td>
+                            <td>{{ unite.semestre.parcours.specialite.nom }}</td>
 
 
                             <td><a target="_blank" href="{% url 'pv_unite' pk=unite.id %}">Selectioner </a></td>

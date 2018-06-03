@@ -45,27 +45,16 @@
                             <a href="{% url 'dashboard_liste_etudiants' %}">Liste des etudiants</a>
                         </li>
                         <li>
-                            <a href="{% url 'dashboard_liste_bacs' %}">Liste des bac</a>
+                            <a href="#">Blank Page</a>
                         </li>
-                    </ul>
-                </li>
-
-                <!-- debut element 2 nav lateral-->
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages"
-                       data-parent="#exampleAccordion">
-                        <i class="fa fa-fw fa-file"></i>
-                        <span class="nav-link-text">Gestion des inscriptions</span>
-                    </a>
-
-                    <ul class="sidenav-second-level collapse" id="collapseExamplePages">
                         <li>
-                            <a href="{% url 'dashboard_liste_inscriptions' %}">Liste des inscriptions</a>
+                            <a href="#">Blank Page</a>
                         </li>
-
+                        <li>
+                            <a href="#">Blank Page</a>
+                        </li>
                     </ul>
                 </li>
-                <!-- fin element 2 nav lateral-->
 
                 <!-- debut element 3 nav lateral-->
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
@@ -87,16 +76,6 @@
                     </ul>
                 </li>
                 <!-- fin element 3 nav lateral-->
-
-                <!-- debut element 4 nav lateral-->
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-                    <a class="nav-link" target="_blank" href="{% url 'admin:index' %}">
-                        <i class="fa fa-fw fa-link"></i>
-                        <span class="nav-link-text">Administration</span>
-                    </a>
-                </li>
-                <!-- fin element 4 nav lateral-->
-
             </ul>
             <!-- fin nav bar lateral-->
 
@@ -180,6 +159,93 @@
                     <!--debut contenu menu deroulant message-->
                 </li>
                 <!-- fin menu deroulant message-->
+
+
+                <!--menu deroulant notif-->
+                <li class="nav-item dropdown">
+
+                    <!--debut boutton menu deroulant message-->
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-fw fa-bell"></i>
+
+                        <span class="d-lg-none">Alerts
+                        <span class="badge badge-pill badge-warning">6 New</span>
+                        </span>
+                        <span class="indicator text-warning d-none d-lg-block">
+                        <i class="fa fa-fw fa-circle"></i>
+                    </span>
+                    </a>
+                    <!--fin boutton menu deroulant message-->
+
+                    <!--debut contenu menu deroulant message-->
+                    <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+                        <h6 class="dropdown-header">New Alerts:</h6>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="#">
+                        <span class="text-success">
+                            <strong>
+                                <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+                        </span>
+                            <span class="small float-right text-muted">11:21 AM</span>
+                            <div class="dropdown-message small">This is an automated server response message. All
+                                systems are online.
+                            </div>
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="#">
+                        <span class="text-danger">
+                            <strong>
+                                <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
+                        </span>
+                            <span class="small float-right text-muted">11:21 AM</span>
+                            <div class="dropdown-message small">This is an automated server response message. All
+                                systems are online.
+                            </div>
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="#">
+                        <span class="text-success">
+                            <strong>
+                                <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+                        </span>
+                            <span class="small float-right text-muted">11:21 AM</span>
+                            <div class="dropdown-message small">This is an automated server response message. All
+                                systems are online.
+                            </div>
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item small" href="#">View all alerts</a>
+
+                    </div>
+                    <!--fin contenu menu deroulant message-->
+
+                </li>
+                <!-- fin menu deroulant notif-->
+
+
+                <!-- bar de recherche-->
+                <li class="nav-item">
+                    <form method="post" class="form-inline my-2 my-lg-0 mr-lg-2"> {% csrf_token %}
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Rechercher un etudiant..." size="25">
+                            <span class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                        </div>
+                    </form>
+                </li>
+                <!-- fin bar de recherche-->
 
 
                 <!-- debut message hello-->

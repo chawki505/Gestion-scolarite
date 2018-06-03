@@ -66,13 +66,13 @@
 
                         <tr>
                             <td>{{ inscription.id }}</td>
-                            <td>{{ inscription.date_inscription }}</td>
+                            <td>{{ inscription.date_creation.date }}</td>
 
-                            <td>{{ inscription.etudiant.user.first_name.capitalize }}</td>
-                            <td>{{ inscription.etudiant.user.last_name.upper }}</td>
+                            <td>{{ inscription.etudiant.nom.upper }}</td>
+                            <td>{{ inscription.etudiant.prenom.capitalize }}</td>
 
-                            <td> {{ inscription.annee_specialite.specialite.nom }}</td>
-                            <td> {{ inscription.annee_specialite.nom }}</td>
+                            <td> {{ inscription.parcours.specialite.nom }}</td>
+                            <td> {{ inscription.parcours.nom }}</td>
                             <td>{{ inscription.categorie }}</td>
                             <td><a href="{% url 'dashboard_detail_inscription' pk=inscription.id %}">Detail </a></td>
 
@@ -84,7 +84,7 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer small text-muted">Updated {{ inscriptions.last.date_inscription }}</div>
+        <div class="card-footer small text-muted">Updated {{ inscriptions.last.date_creation }}</div>
     </div>
     </div>
 

@@ -12,9 +12,9 @@
 
             <h4>Université d'Oran 1 Ahmed Ben Bella</h4>
 
-            <h5>{{ unite.semestre.annee_specialite.specialite.cycle.departement.domaine.faculte.nom }}</h5>
+            <h5>{{ unite.semestre.parcours.specialite.departement.domaine.faculte.nom }}</h5>
             <h5> Département
-                : {{ unite.semestre.annee_specialite.specialite.cycle.departement.nom }}</h5>
+                : {{ unite.semestre.parcours.specialite.departement.nom }}</h5>
 
         </div>
 
@@ -25,7 +25,7 @@
         <div class="col text-center">
 
             <h1>{{ unite.nom }}</h1>
-            <h3>Année universitaire {{ annee_universitaire.nom }}</h3>
+            <h3>Année universitaire {% now 'Y' %}</h3>
         </div>
 
     </div>
@@ -43,30 +43,32 @@
                     <th scope="col">N°</th>
                     <th scope="col">Nom etudiant</th>
                     <th scope="col">Prenom etudiant</th>
+                    <th scope="col"> Groupe</th>
 
-                    {% for module in modules %}
-                        <th scope="col">Note {{ module.nom }}</th>
+                    {% for module in unite.modules.all %}
+                        <th scope="col"> {{ module.nom }}</th>
                     {% endfor %}
 
                     <th scope="col">Moyenne</th>
-
-
                 </tr>
                 </thead>
 
                 <tbody>
 
-                {% for value in student %}
+                {% for note in notes %}
                     <tr>
-                        {% for foo in value.items %}
-                            <th scope="col">{{ foo.1 }}</th>
+                        {% for item in note.items %}
+                            {% if forloop.last %}
+                                <td class="table-active" scope="col"><strong>{{ item.1 }}</strong></td>
+
+                            {% else %}
+                                <td scope="col">{{ item.1 }}</td>
+
+                            {% endif %}
+
                         {% endfor %}
-
                     </tr>
-
                 {% endfor %}
-
-
                 </tbody>
 
             </table>
@@ -74,7 +76,8 @@
 
             <ul class="list-group">
 
-                <li class="list-group-item"> Nombre d'etudiants : {{ notes.all.count }}</li>
+                <li class="list-group-item"> Responsable unite
+                    : {{ unite.enseignant.nom }} {{ unite.enseignant.prenom }}</li>
             </ul>
         </div>
 

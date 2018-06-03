@@ -60,8 +60,8 @@
                             <td>{{ module.nom }}</td>
                             <td>{{ module.unite.nom }}</td>
                             <td>{{ module.unite.semestre.nom }}</td>
-                            <td>{{ module.unite.semestre.annee_specialite.nom }}</td>
-                            <td>{{ module.unite.semestre.annee_specialite.specialite.nom }}</td>
+                            <td>{{ module.unite.semestre.parcours.nom }}</td>
+                            <td>{{ module.unite.semestre.parcours.specialite.nom }}</td>
 
 
                             <td><a target="_blank" href="{% url 'pv_module' pk=module.id %}">Selectioner </a></td>
@@ -75,7 +75,7 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer small text-muted">Updated {{ etudiants.last.user.date_joined }}</div>
+        <div class="card-footer small text-muted">Updated {% now "SHORT_DATETIME_FORMAT" %}</div>
     </div>
     </div>
 

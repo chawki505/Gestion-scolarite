@@ -11,7 +11,7 @@ def dashboard_liste_inscriptions(request):
     if request.user.is_authenticated and request.user.groups.filter(name='Administrateur').exists():
 
         # get only inscriptions in last annee univ
-        annee_univ = Annee_universitaire.objects.all().last()
+        annee_univ = Annee_universitaire.objects.get(nom__contains=timezone.now().year)
         inscriptions = Inscription.objects.filter(annee_universitaire=annee_univ)
 
         return render(request, 'inscriptions/liste_inscriptions.html',
@@ -56,7 +56,7 @@ def dashboard_detail_etudiant(request, pk):
                  get_object_or_404(Etudiant, pk=pk).__eq__(request.user.etudiant)):
 
             etudiant = Etudiant.objects.get(pk=pk)
-            inscriptions = etudiant.inscriptions.all()
+            inscriptions = etudiant.inscriptions.all().order_by('-annee_universitaire__nom')
 
             bac = etudiant.bac
 

@@ -109,6 +109,8 @@ class Note(models.Model):
                                  max_length=256)
     note = models.FloatField()
 
+    date_creation = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.inscription.etudiant.__str__() + " Module : " + self.module.nom + \
                ", Note : " + self.note.__str__()
