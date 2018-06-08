@@ -27,7 +27,7 @@
                     : {{ etudiant.user.date_joined }}
                 </li>
                 <li class="list-group-item"><strong>Nom et prénom</strong>
-                    : {{ etudiant.user.first_name.capitalize }} {{ etudiant.user.last_name.upper }}
+                    : {{ etudiant.nom.upper }} {{ etudiant.prenom.capitalize }}
                 </li>
                 <li class="list-group-item"><strong>Sexe : </strong> {{ etudiant.sexe }}</li>
                 <li class="list-group-item"><strong>Né(e) le </strong>{{ etudiant.date_naissance }}
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-<hr>
+    <hr>
 
     <div class="row mt-5">
         <div class="col">

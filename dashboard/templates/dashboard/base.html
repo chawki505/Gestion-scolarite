@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard Django</title>
+    <title>Dashboard</title>
 
     <!-- Bootstrap core CSS-->
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -24,7 +24,8 @@
           rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{% static 'startbootstrap-sb-admin/css/sb-admin.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/css/sb-admin.css' %}" rel="stylesheet">
+
 </head>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 
@@ -88,21 +89,17 @@
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}v"></script>
-
 
 <!-- Page level plugin JavaScript-->
-<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
 <script src="{% static 'vendor/datatables/jquery.dataTables.js' %}"></script>
 <script src="{% static 'vendor/datatables/dataTables.bootstrap4.js' %}"></script>
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'vendor/scrollreveal/scrollreveal.min.js' %}"></script>
+<script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="{% static 'startbootstrap-sb-admin/js/sb-admin.min.js' %}"></script>
-
-<!-- Custom scripts for this page-->
-<script src="{% static 'startbootstrap-sb-admin/js/sb-admin-datatables.min.js' %}"></script>
-<script src="{% static 'startbootstrap-sb-admin/js/sb-admin-charts.min.js' %}"></script>
+<script src="{% static 'dashboard/js/sb-admin.min.js' %}"></script>
+<script src="{% static 'dashboard/js/sb-admin-datatables.min.js' %}"></script>
 
 
 </html>

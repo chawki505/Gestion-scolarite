@@ -70,7 +70,7 @@ def pv_module(request, pk):
             'notes': student_list,
         }
 
-        return render(request, 'modules/pv_module.html', context)
+        return render(request, 'modules/doc/pv_module.html', context)
     else:
         return redirect('login_account')
 
@@ -135,7 +135,7 @@ def pv_unite(request, pk):
         context = {'unite': unite,
                    'notes': student_list, }
 
-        return render(request, 'modules/pv_unite.html', context)
+        return render(request, 'modules/doc/pv_unite.html', context)
     else:
         return redirect('login_account')
 
@@ -222,6 +222,6 @@ def pv_semestre(request, pk):
         contexe = {'semestre': semestre,
                    'moyennes': student_list, }
 
-        return render(request, 'modules/pv_semestre.html', contexe)
+        return render(request, 'modules/doc/pv_semestre.html', contexe)
     else:
         return redirect('login_account')

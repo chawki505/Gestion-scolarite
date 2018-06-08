@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <div class="container text-center">
+    <div class="text-center">
 
         <img src="{% static 'img/logo_univ2.png' %}" width="200px">
         <h2>République Algérienne Démocratique et Populaire</h2>
@@ -18,14 +18,14 @@
     </div>
 
     <br><br>
-    <div class="container text-center">
+    <div class="text-center">
         <h1>Certificat de Scolarité</h1>
     </div>
 
     <br><br><br><br>
 
 
-    <div class="container contenu text-left">
+    <div class="text-left">
         <h5> Le chef de département informatique
              {{ inscription.parcours.specialite.departement.chef.nom.upper }}
             {{ inscription.parcours.specialite.departement.chef.prenom.capitalize }}</h5>
@@ -33,8 +33,8 @@
 
         <h5>Atteste que l'étudiant(e)</h5>
 
-        <p><strong>Nom</strong> : {{ inscription.etudiant.nom.capitalize }} <strong>Prénom</strong>
-            : {{ inscription.etudiant.prenom.upper }} </p>
+        <p><strong>Nom</strong> : {{ inscription.etudiant.nom.upper }} <strong>Prénom</strong>
+            : {{ inscription.etudiant.prenom.capitalize }} </p>
 
         <p><strong>Né(e) le : </strong>{{ inscription.etudiant.date_naissance }}<strong> à</strong>
             : {{ inscription.etudiant.lieu_naissance.capitalize }}</p>

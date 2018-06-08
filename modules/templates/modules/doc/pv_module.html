@@ -1,4 +1,4 @@
-{% extends 'modules/base.html' %}
+{% extends 'modules/doc/base.html' %}
 {% load staticfiles %}
 
 
@@ -12,10 +12,9 @@
 
             <h4>Université d'Oran 1 Ahmed Ben Bella</h4>
 
-            <h5>{{ semestre.parcours.specialite.departement.domaine.faculte.nom }}</h5>
+            <h5>{{ module.unite.semestre.parcours.specialite.departement.domaine.faculte.nom }}</h5>
             <h5> Département
-                : {{ semestre.parcours.specialite.departement.nom }}</h5>
-
+                : {{ module.unite.semestre.parcours.specialite.departement.nom }}</h5>
         </div>
 
     </div>
@@ -24,7 +23,7 @@
     <div class="row">
         <div class="col text-center">
 
-            <h1>{{ semestre.nom }}</h1>
+            <h1>{{ module.nom }}</h1>
             <h3>Année universitaire {% now 'Y' %}</h3>
         </div>
 
@@ -44,15 +43,17 @@
                     <th scope="col">Nom etudiant</th>
                     <th scope="col">Prenom etudiant</th>
                     <th scope="col"> Groupe</th>
-                    <th scope="col">Moyenne</th>
+                    <th scope="col">CC</th>
+                    <th scope="col">EF</th>
+                    <th scope="col"> Moyenne</th>
                 </tr>
                 </thead>
 
                 <tbody>
-
-                {% for moyenne in moyennes %}
+                {% for note in notes %}
                     <tr>
-                        {% for item in moyenne.items %}
+
+                        {% for item in note.items %}
                             {% if forloop.last %}
                                 <td class="table-active" scope="col"><strong>{{ item.1 }}</strong></td>
 
@@ -60,10 +61,12 @@
                                 <td scope="col">{{ item.1 }}</td>
 
                             {% endif %}
-
                         {% endfor %}
+
                     </tr>
                 {% endfor %}
+
+
                 </tbody>
 
             </table>
@@ -71,8 +74,8 @@
 
             <ul class="list-group">
 
-                <li class="list-group-item"> Responsable parcours
-                    : {{ semestre.parcours.responsable.nom }} {{ semestre.parcours.responsable.prenom }}</li>
+                <li class="list-group-item"> Responsable module
+                    : {{ module.enseignant.nom }} {{ module.enseignant.prenom }}</li>
             </ul>
         </div>
 
