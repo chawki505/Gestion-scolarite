@@ -77,7 +77,9 @@
                             <td> {{ etudiant.date_naissance }}</td>
                             <td> {{ etudiant.lieu_naissance.capitalize }}</td>
                             <td> {{ etudiant.nationalite.name }}</td>
-                            <td><a href="{% url 'dashboard_detail_etudiant' pk=etudiant.id %}">Detail </a></td>
+                            <td><a class="btn btn-outline-primary btn-sm"
+                                   href="{% url 'dashboard_detail_etudiant' pk=etudiant.id %}" role="button">Detail</a>
+                            </td>
 
 
                         </tr>

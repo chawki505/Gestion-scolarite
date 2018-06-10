@@ -12,7 +12,10 @@ from .models import *
 
 # Create your views here.
 
+# connexion d'un utilisateur
 def login_account(request):
+
+    # test so connecter
     if request.user.is_authenticated:
         return redirect('dashboard_home_page')
 
@@ -20,23 +23,28 @@ def login_account(request):
 
         if request.method == "POST":
 
-            username = request.POST["username"]
+            # get data in form input
+            username = request.POST["nomUtilisateur"]
             password = request.POST["password"]
 
+            # get user
             user = auth.authenticate(request, username=username, password=password)
 
+            # test si utilisateur exist
             if user is not None:
                 auth.login(request, user)
                 return redirect('dashboard_home_page')
 
             else:
-                messages.error(request, "Nom d'utilisateur ou mot de passe erroné")
+                messages.error(request, "Nom d'utilisateur ou mot de passe incorrecte !")
+
                 return redirect('login_account')
 
         else:
             return render(request, "accounts/login.html", {})
 
 
+# deconnecte l'utilisateur et le rediriger vers linterface principal
 def logout_account(request):
     auth.logout(request)
     return redirect('home_page')
@@ -76,8 +84,10 @@ def register_account(request):
             messages.error(request, "Mot de passe non valide")
             return redirect('register_account')
 
-        user = User.objects.create_user(username, email=email, password=password)
+        user = User.objects.create_user(username=username, email=email, password=password)
+
         user.first_name = nom
+
         user.last_name = prenom
 
         user.save()

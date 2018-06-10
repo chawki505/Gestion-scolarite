@@ -1,0 +1,89 @@
+{% extends 'dashboard/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_home_page' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'liste_semestre' %}">Liste semestres</a>
+        </li>
+        <li class="breadcrumb-item active">Liste des notes</li>
+    </ol>
+
+
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> Liste des notes unite {{ unite.nom }}
+            <a class="btn btn-outline-primary btn-sm" target="_blank"
+               href="{% url 'pv_semestre' pk=semestre.id %}" role="button">Afficher PV</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">Nom etudiant</th>
+                        <th scope="col">Prenom etudiant</th>
+                        <th scope="col"> Groupe</th>
+
+                        {% for unite in unites %}
+                            {% for module in unite.modules.all %}
+                                <th scope="col"> {{ module.nom }}</th>
+                            {% endfor %}
+                            <th scope="col"> Moy unite</th>
+                        {% endfor %}
+
+                        <th scope="col">Moyenne</th>
+                    </tr>
+                    </thead>
+
+                    {% for moyenne in moyennes %}
+                        <tr>
+                            {% for item in moyenne.items %}
+                                {% if forloop.last %}
+                                    <td class="table-secondary" scope="col"><strong>{{ item.1 }}</strong></td>
+
+                                {% else %}
+
+                                    {% if item.0 in unites %}
+                                        <td class="table-warning" scope="col"><strong>{{ item.1 }}</strong></td>
+                                    {% elif forloop.counter >= 5 %}
+                                        <td class="table-active" scope="col"><strong>{{ item.1 }}</strong></td>
+
+
+
+                                    {% else %}
+                                        <td scope="col">{{ item.1 }}</td>
+
+                                    {% endif %}
+
+
+                                {% endif %}
+
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated {% now "SHORT_DATETIME_FORMAT" %}</div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

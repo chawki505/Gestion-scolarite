@@ -1,0 +1,97 @@
+{% extends 'dashboard/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_home_page' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'liste_unites' %}">Liste unites</a>
+        </li>
+        <li class="breadcrumb-item active">Liste des notes</li>
+    </ol>
+
+
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> Liste des notes de l'unite {{ unite.nom }}
+            <a class="btn btn-outline-primary btn-sm" target="_blank"
+               href="{% url 'pv_unite' pk=unite.id %}" role="button">Afficher PV</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">Nom etudiant</th>
+                        <th scope="col">Prenom etudiant</th>
+                        <th scope="col"> Groupe</th>
+
+                        {% for module in unite.modules.all %}
+                            <th scope="col"> {{ module.nom }}</th>
+                        {% endfor %}
+
+                        <th scope="col">Moyenne</th>
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">Nom etudiant</th>
+                        <th scope="col">Prenom etudiant</th>
+                        <th scope="col"> Groupe</th>
+
+                        {% for module in unite.modules.all %}
+                            <th scope="col"> {{ module.nom }}</th>
+                        {% endfor %}
+
+                        <th scope="col">Moyenne</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+
+                    {% for note in notes %}
+                        <tr>
+                            {% for item in note.items %}
+                                {% if forloop.last %}
+                                    <td class="table-secondary" scope="col"><strong>{{ item.1 }}</strong></td>
+
+                                {% else %}
+
+                                    {% if forloop.counter >= 5 %}
+                                        <td class="table-active" scope="col"><strong>{{ item.1 }}</strong></td>
+
+                                    {% else %}
+                                        <td scope="col">{{ item.1 }}</td>
+
+                                    {% endif %}
+                                {% endif %}
+
+
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated {% now "SHORT_DATETIME_FORMAT" %}</div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

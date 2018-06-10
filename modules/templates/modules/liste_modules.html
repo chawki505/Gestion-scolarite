@@ -31,7 +31,6 @@
                         <th>Semestre</th>
                         <th>Année</th>
                         <th>Specialite</th>
-
                         <th>Action</th>
 
 
@@ -46,9 +45,7 @@
                         <th>Semestre</th>
                         <th>Année</th>
                         <th>Specialite</th>
-
                         <th>Action</th>
-
                     </tr>
                     </tfoot>
                     <tbody>
@@ -62,11 +59,9 @@
                             <td>{{ module.unite.semestre.nom }}</td>
                             <td>{{ module.unite.semestre.parcours.nom }}</td>
                             <td>{{ module.unite.semestre.parcours.specialite.nom }}</td>
-
-
-                            <td><a target="_blank" href="{% url 'pv_module' pk=module.id %}">Selectioner </a></td>
-
-
+                            <td><a class="btn btn-outline-primary btn-sm"
+                                   href="{% url 'liste_notes_module' pk=module.id %}" role="button">Detail</a>
+                            </td>
                         </tr>
 
                     {% endfor %}

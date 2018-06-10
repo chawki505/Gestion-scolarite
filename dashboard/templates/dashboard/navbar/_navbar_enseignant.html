@@ -31,12 +31,20 @@
                 </li>
                 <!-- fin element 1 nav lateral-->
 
+                <!-- debut element 4 nav lateral-->
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-fw fa-info"></i>
+                        <span class="nav-link-text">Mes informations </span>
+                    </a>
+                </li>
+
 
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Gestion des etudiants">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
                        href="#collapseGestionEtudiants"
                        data-parent="#exampleAccordion">
-                        <i class="fa fa-fw fa-file"></i>
+                        <i class="fa fa-fw fa-user"></i>
                         <span class="nav-link-text">Gestion des etudiants</span>
                     </a>
 
@@ -45,13 +53,7 @@
                             <a href="{% url 'dashboard_liste_etudiants' %}">Liste des etudiants</a>
                         </li>
                         <li>
-                            <a href="#">Blank Page</a>
-                        </li>
-                        <li>
-                            <a href="#">Blank Page</a>
-                        </li>
-                        <li>
-                            <a href="#">Blank Page</a>
+                            <a href="">Saisir des notes</a>
                         </li>
                     </ul>
                 </li>
@@ -65,13 +67,13 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseMulti">
                         <li>
-                            <a href="{% url 'liste_modules' %}">PV Modules</a>
+                            <a href="{% url 'liste_modules' %}">PV Modulaire</a>
                         </li>
                         <li>
-                            <a href="{% url 'liste_unites' %}">PV Unités</a>
+                            <a href="{% url 'liste_unites' %}">PV Unitaire</a>
                         </li>
                         <li>
-                            <a href="{% url 'liste_semestre' %}">PV Semestres </a>
+                            <a href="{% url 'liste_semestre' %}">PV Semestrielle </a>
                         </li>
                     </ul>
                 </li>
@@ -105,11 +107,13 @@
 
                         <span class="d-lg-none">
                         Messages
-                        <span class="badge badge-pill badge-primary">12 New</span>
+                        <span class="badge badge-pill badge-primary">{{ messages.count }} New</span>
                     </span>
 
                         <span class="indicator text-primary d-none d-lg-block">
-                        <i class="fa fa-fw fa-circle"></i>
+                            {% if messages %}
+                                <i class="fa fa-fw fa-circle"></i>
+                            {% endif %}
                     </span>
                     </a>
                     <!--fin boutton menu deroulant message-->
@@ -117,136 +121,33 @@
                     <!--debut contenu menu deroulant message-->
                     <div class="dropdown-menu" aria-labelledby="messagesDropdown">
 
-                        <h6 class="dropdown-header">New Messages:</h6>
+                        <h6 class="dropdown-header">Nouveaux Messages:</h6>
 
                         <div class="dropdown-divider"></div>
 
-                        <a class="dropdown-item" href="#">
-                            <strong>CHOUIB Chawki</strong>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">Donec sollicitudin molestie malesuada. Vivamus suscipit
-                                tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Proin eget
-                                tortor risus. Sed porttitor lectus nibh. Quisque velit nisi, pretium ut lacinia in,
-                                elementum id enim.
-                            </div>
-                        </a>
 
-                        <a class="dropdown-item" href="#">
-                            <strong>CHOUIB Chawki</strong>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">Donec sollicitudin molestie malesuada. Vivamus suscipit
-                                tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Proin eget
-                                tortor risus. Sed porttitor lectus nibh. Quisque velit nisi, pretium ut lacinia in,
-                                elementum id enim.
-                            </div>
-                        </a>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <a class="dropdown-item" href="{% url 'message_details' pk=message.id %}">
+                                    <strong>{{ message.auteur }}</strong>
+                                    <span class="small float-right text-muted">{{ message.created_date }}</span>
+                                    <div class="dropdown-message small">{{ message.texte }}
+                                    </div>
+                                </a>
 
+                            {% endfor %}
+                        {% else %}
+                            <h7 class="dropdown-header">Aucun nouveaux messages</h7>
+                        {% endif %}
 
-                        <a class="dropdown-item" href="#">
-                            <strong>CHOUIB Chawki</strong>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">Donec sollicitudin molestie malesuada. Vivamus suscipit
-                                tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Proin eget
-                                tortor risus. Sed porttitor lectus nibh. Quisque velit nisi, pretium ut lacinia in,
-                                elementum id enim.
-                            </div>
-                        </a>
 
 
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item small" href="#">View all messages</a>
+                        <a class="dropdown-item small" href="{% url 'liste_messages_recu' %}">View all messages</a>
                     </div>
                     <!--debut contenu menu deroulant message-->
                 </li>
                 <!-- fin menu deroulant message-->
-
-
-                <!--menu deroulant notif-->
-                <li class="nav-item dropdown">
-
-                    <!--debut boutton menu deroulant message-->
-                    <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-fw fa-bell"></i>
-
-                        <span class="d-lg-none">Alerts
-                        <span class="badge badge-pill badge-warning">6 New</span>
-                        </span>
-                        <span class="indicator text-warning d-none d-lg-block">
-                        <i class="fa fa-fw fa-circle"></i>
-                    </span>
-                    </a>
-                    <!--fin boutton menu deroulant message-->
-
-                    <!--debut contenu menu deroulant message-->
-                    <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-                        <h6 class="dropdown-header">New Alerts:</h6>
-
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item" href="#">
-                        <span class="text-success">
-                            <strong>
-                                <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-                        </span>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All
-                                systems are online.
-                            </div>
-                        </a>
-
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item" href="#">
-                        <span class="text-danger">
-                            <strong>
-                                <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
-                        </span>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All
-                                systems are online.
-                            </div>
-                        </a>
-
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item" href="#">
-                        <span class="text-success">
-                            <strong>
-                                <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-                        </span>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All
-                                systems are online.
-                            </div>
-                        </a>
-
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item small" href="#">View all alerts</a>
-
-                    </div>
-                    <!--fin contenu menu deroulant message-->
-
-                </li>
-                <!-- fin menu deroulant notif-->
-
-
-                <!-- bar de recherche-->
-                <li class="nav-item">
-                    <form method="post" class="form-inline my-2 my-lg-0 mr-lg-2"> {% csrf_token %}
-                        <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Rechercher un etudiant..." size="25">
-                            <span class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                        </div>
-                    </form>
-                </li>
-                <!-- fin bar de recherche-->
-
 
                 <!-- debut message hello-->
                 <li class="nav-item">

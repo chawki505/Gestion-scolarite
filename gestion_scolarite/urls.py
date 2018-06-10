@@ -20,9 +20,14 @@ from home_page.views import home_page
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
     url(r'^$', home_page, name='home_page'),
+
     url(r'^accounts/', include('accounts.urls')),
+
     url(r'^accounts/', include('django.contrib.auth.urls')),
+
+
     url(r'^dashboard/', include('dashboard.urls')),
 
 ]

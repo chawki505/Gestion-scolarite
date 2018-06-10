@@ -34,14 +34,14 @@
 
                 <!-- debut element 4 nav lateral-->
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-                    <a class="nav-link" href="{% url 'dashboard_detail_etudiant' pk=user.etudiant.id %}">
+                    <a class="nav-link" href="{% url 'dashboard_etudiant_information' pk=user.etudiant.id %}">
                         <i class="fa fa-fw fa-info"></i>
                         <span class="nav-link-text">Mes informations </span>
                     </a>
                 </li>
 
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{% url 'dashboard_etudiant_historique' pk=user.etudiant.id %}">
                         <i class="fa fa-fw fa-history"></i>
                         <span class="nav-link-text">Mon historique</span>
                     </a>
@@ -49,18 +49,12 @@
 
 
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{% url 'dashboard_etudiant_parcours' pk=user.etudiant.id %}">
                         <i class="fa fa-fw fa-table"></i>
                         <span class="nav-link-text">Mon parcours</span>
                     </a>
                 </li>
 
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-                    <a class="nav-link" href="#">
-                        <i class="fa fa-fw fa-plus"></i>
-                        <span class="nav-link-text">Autre</span>
-                    </a>
-                </li>
                 <!-- fin element 4 nav lateral-->
 
             </ul>
@@ -92,11 +86,13 @@
 
                         <span class="d-lg-none">
                         Messages
-                        <span class="badge badge-pill badge-primary">12 New</span>
+                        <span class="badge badge-pill badge-primary">{{ messages.count }} New</span>
                     </span>
 
                         <span class="indicator text-primary d-none d-lg-block">
-                        <i class="fa fa-fw fa-circle"></i>
+                            {% if messages %}
+                                <i class="fa fa-fw fa-circle"></i>
+                            {% endif %}
                     </span>
                     </a>
                     <!--fin boutton menu deroulant message-->
@@ -104,49 +100,33 @@
                     <!--debut contenu menu deroulant message-->
                     <div class="dropdown-menu" aria-labelledby="messagesDropdown">
 
-                        <h6 class="dropdown-header">New Messages:</h6>
+                        <h6 class="dropdown-header">Nouveaux Messages:</h6>
 
                         <div class="dropdown-divider"></div>
 
-                        <a class="dropdown-item" href="#">
-                            <strong>CHOUIB Chawki</strong>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">Donec sollicitudin molestie malesuada. Vivamus suscipit
-                                tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Proin eget
-                                tortor risus. Sed porttitor lectus nibh. Quisque velit nisi, pretium ut lacinia in,
-                                elementum id enim.
-                            </div>
-                        </a>
 
-                        <a class="dropdown-item" href="#">
-                            <strong>CHOUIB Chawki</strong>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">Donec sollicitudin molestie malesuada. Vivamus suscipit
-                                tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Proin eget
-                                tortor risus. Sed porttitor lectus nibh. Quisque velit nisi, pretium ut lacinia in,
-                                elementum id enim.
-                            </div>
-                        </a>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <a class="dropdown-item" href="{% url 'message_details' pk=message.id %}">
+                                    <strong>{{ message.auteur }}</strong>
+                                    <span class="small float-right text-muted">{{ message.created_date }}</span>
+                                    <div class="dropdown-message small">{{ message.texte }}
+                                    </div>
+                                </a>
 
+                            {% endfor %}
+                        {% else %}
+                            <h7 class="dropdown-header">Aucun nouveaux messages</h7>
+                        {% endif %}
 
-                        <a class="dropdown-item" href="#">
-                            <strong>CHOUIB Chawki</strong>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">Donec sollicitudin molestie malesuada. Vivamus suscipit
-                                tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Proin eget
-                                tortor risus. Sed porttitor lectus nibh. Quisque velit nisi, pretium ut lacinia in,
-                                elementum id enim.
-                            </div>
-                        </a>
 
 
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item small" href="#">View all messages</a>
+                        <a class="dropdown-item small" href="{% url 'liste_messages_recu' %}">View all messages</a>
                     </div>
                     <!--debut contenu menu deroulant message-->
                 </li>
                 <!-- fin menu deroulant message-->
-
 
 
                 <!-- debut message hello-->

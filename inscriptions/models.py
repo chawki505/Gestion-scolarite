@@ -78,6 +78,7 @@ class Groupe(models.Model):
 
 
 class Inscription(models.Model):
+
     etudiant = models.ForeignKey(Etudiant, related_name='inscriptions')
 
     annee_universitaire = models.ForeignKey('etablissements.Annee_universitaire',
@@ -86,6 +87,7 @@ class Inscription(models.Model):
     parcours = models.ForeignKey('modules.Parcours', related_name='inscriptions')
 
     groupe = models.ForeignKey(Groupe, related_name='inscriptions', null=True)
+
 
     date_creation = models.DateTimeField(auto_now_add=True)
 
@@ -105,15 +107,29 @@ class Inscription(models.Model):
 class Note(models.Model):
     inscription = models.ForeignKey(Inscription, related_name='notes')
     module = models.ForeignKey('modules.Module', related_name='notes')
-    categorie = models.CharField(choices=(('CC', 'CC'), ('EF', 'EF'), ('ER', 'ER')),
-                                 max_length=256)
-    note = models.FloatField()
+
+    noteCC = models.FloatField(null=True, blank=True)
+
+    noteEF = models.FloatField(null=True, blank=True)
+
+    noteER = models.FloatField(null=True, blank=True)
+
+    moyenne1 = models.FloatField(null=True, blank=True, default=0)
+
+    moyenne2 = models.FloatField(null=True, blank=True, default=0)
 
     date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.inscription.etudiant.__str__() + " Module : " + self.module.nom + \
-               ", Note : " + self.note.__str__()
+        return self.inscription.etudiant.__str__() + " Module : " + self.module.nom
+
+    def calcule_moyenne1(self):
+        self.moyenne1 = round( (self.noteCC + self.noteEF) / 2, 2)
+        self.save()
+
+    def calcule_moyenne2(self):
+        self.moyenne2 = round((self.noteCC + self.noteER) / 2, 2)
+        self.save()
 
     class Meta:
         db_table = "note"

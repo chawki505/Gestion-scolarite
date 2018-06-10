@@ -69,8 +69,9 @@
                             <td>{{ unite.semestre.parcours.specialite.nom }}</td>
 
 
-                            <td><a target="_blank" href="{% url 'pv_unite' pk=unite.id %}">Selectioner </a></td>
-
+                            <td><a class="btn btn-outline-primary btn-sm"
+                                   href="{% url 'liste_notes_unite' pk=unite.id %}" role="button">Detail</a>
+                            </td>
 
                         </tr>
 

@@ -33,21 +33,28 @@
 {% block navbar %}
 
     {% if user.groups.get.name == 'Administrateur' %}
+
         {% include 'dashboard/navbar/_navbar_admin.html' %}
-    {% elif user.groups.get.name == 'Enseignant' %}
+
+    {% elif user.groups.get.name == 'Enseignants' %}
+
         {% include 'dashboard/navbar/_navbar_enseignant.html' %}
+
     {% else %}
+
         {% include 'dashboard/navbar/_navbar_etudiant.html' %}
+
     {% endif %}
 
-
-
 {% endblock %}
+
 
 
 {% block logout %}
     {% include 'dashboard/_logout.html' %}
 {% endblock %}
+
+
 
 
 <div class="content-wrapper">

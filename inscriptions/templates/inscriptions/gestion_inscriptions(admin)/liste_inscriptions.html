@@ -74,7 +74,9 @@
                             <td> {{ inscription.parcours.specialite.nom }}</td>
                             <td> {{ inscription.parcours.nom }}</td>
                             <td>{{ inscription.categorie }}</td>
-                            <td><a href="{% url 'dashboard_detail_inscription' pk=inscription.id %}">Detail </a></td>
+                            <td><a class="btn btn-outline-primary btn-sm"
+                                   href="{% url 'dashboard_detail_inscription' pk=inscription.id %}" role="button">Detail</a>
+                            </td>
 
                         </tr>
 

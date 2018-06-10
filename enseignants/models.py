@@ -8,6 +8,7 @@ from django_countries.fields import CountryField
 
 class Enseignant(models.Model):
     user = models.OneToOneField('auth.User', related_name='enseignant')
+
     nom = models.CharField(max_length=256)
     prenom = models.CharField(max_length=256)
 
@@ -27,6 +28,7 @@ class Enseignant(models.Model):
     nationalite = CountryField(blank=True, null=True)
 
     adresse = models.CharField(max_length=256, blank=True, null=True)
+
     telephone = models.CharField(max_length=256, blank=True, null=True)
 
     date_creation = models.DateTimeField(auto_now_add=True)

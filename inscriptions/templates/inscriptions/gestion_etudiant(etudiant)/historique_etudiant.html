@@ -1,0 +1,67 @@
+{% extends 'dashboard/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_home_page' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Mon historique</li>
+    </ol>
+
+
+
+    <div class="row mt-5">
+        <div class="col">
+            <h3 class="text-center">Historique inscriptions</h3>
+
+        </div>
+    </div>
+    <div class="row">
+
+
+        {% for inscription in inscriptions %}
+
+            <div class="col">
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Année universitaire
+                        : </strong>{{ inscription.annee_universitaire }}
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>Date
+                                : </strong> {{ inscription.date_creation }}</li>
+
+                            <li class="list-group-item"><strong>Catégorie
+                                : </strong>{{ inscription.categorie }}</li>
+
+                            <li class="list-group-item"><strong>Spécialite
+                                : </strong>{{ inscription.parcours.specialite.nom }}</li>
+
+                            <li class="list-group-item"><strong>Année
+                                : </strong>{{ inscription.parcours.nom }}</li>
+
+
+                            <a class="list-group-item list-group-item-action active text-center"
+                               href="#"><span>Detail</span></a>
+
+                        </ul>
+                    </li>
+
+                </ul>
+
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+
+
+
+
+
+{% endblock %}

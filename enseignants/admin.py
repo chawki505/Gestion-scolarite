@@ -8,7 +8,7 @@ from modules.models import Module
 # Register your models here.
 
 
-class ModulelInLine(admin.TabularInline):
+class ModulelInLine(admin.StackedInline):
     model = Module
     extra = 0
 
@@ -17,4 +17,8 @@ class EnseignantAdmin(admin.ModelAdmin):
     inlines = [ModulelInLine]
 
 
-admin.site.register(Enseignant, EnseignantAdmin)
+admin.site.register(Enseignant,EnseignantAdmin)
+
+
+
+

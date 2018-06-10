@@ -21,13 +21,30 @@
             <div class="card-header">Connexion</div>
             <div class="card-body">
 
+
+
+
+
+
+
                 <form method="post" role="form" enctype="multipart/form-data">{% csrf_token %}
 
+
+
+
+
                     <div class="form-group">
+
                         <label for="exampleInputUsername">Nom d'utilisateur</label>
-                        <input required name="username" class="form-control" id="" type="text"
+
+                        <input required name="nomUtilisateur" class="form-control" id="" type="text"
                                placeholder="Entrer votre nom d'utilisateur">
                     </div>
+
+
+
+
+
 
                     <div class="form-group">
 
@@ -36,6 +53,12 @@
                         <input required name="password" class="form-control" id="" type="password"
                                placeholder="Entrer votre mot de passe">
                     </div>
+
+
+
+
+
+
 
                     <div class="form-group">
 
@@ -58,6 +81,14 @@
                     <button type="submit" class="btn btn-primary btn-block">Connexion</button>
 
                 </form>
+
+
+
+
+
+
+
+
 
                 <div class="text-center">
                     <a class="d-block small mt-3" href="{% url 'register_account' %}">Enregistrer un compte</a>

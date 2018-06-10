@@ -65,8 +65,9 @@
                             <td>{{ semestre.parcours.nom }}</td>
 
 
-                            <td><a target="_blank" href="{% url 'pv_semestre' pk=semestre.id %}">Selectioner </a></td>
-
+                            <td><a class="btn btn-outline-primary btn-sm"
+                                   href="{% url 'liste_notes_semestre' pk=semestre.id %}" role="button">Detail</a>
+                            </td>
 
                         </tr>
 

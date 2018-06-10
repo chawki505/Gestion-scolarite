@@ -19,8 +19,10 @@
     <div class="row">
 
         <div class="col">
-            <h2>Messages </h2>
-            <a href="{% url 'modifier_message' pk=message.id %}">Modifier message</a>
+            <h2>Message </h2>
+            <a class="btn btn-outline-primary btn-sm" href="{% url 'modifier_message' pk=message.id %}" role="button">Modifier
+                le message</a>
+            <hr>
             <ul class="list-group">
 
                 <li class="list-group-item"><strong>De : </strong>{{ message.auteur }}</li>

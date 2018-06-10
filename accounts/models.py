@@ -7,15 +7,25 @@ from django.utils import timezone
 
 
 class Message(models.Model):
+
     auteur = models.ForeignKey('auth.User', related_name='messages_envoyer')
+
     titre = models.CharField(max_length=250)
+
     destinataire = models.ForeignKey('auth.User', related_name='messages_recu')
+
     created_date = models.DateTimeField(auto_now_add=True)
 
     texte = models.TextField()
 
+    open = models.BooleanField(default=False)
+
     def __str__(self):
         return self.titre
+
+    def open_msg(self):
+        self.open = True
+        self.save()
 
     class Meta:
         db_table = "message"
@@ -24,6 +34,7 @@ class Message(models.Model):
 
 
 class Reponse(models.Model):
+
     message = models.ForeignKey(Message, related_name='reponses')
     auteur = models.ForeignKey('auth.User', related_name='reponses_envoyer')
     titre = models.CharField(max_length=250)

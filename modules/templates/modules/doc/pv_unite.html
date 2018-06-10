@@ -59,12 +59,19 @@
                     <tr>
                         {% for item in note.items %}
                             {% if forloop.last %}
-                                <td class="table-active" scope="col"><strong>{{ item.1 }}</strong></td>
+                                <td class="table-secondary" scope="col"><strong>{{ item.1 }}</strong></td>
 
                             {% else %}
-                                <td scope="col">{{ item.1 }}</td>
 
+                                {% if forloop.counter >= 5 %}
+                                    <td class="table-active" scope="col"><strong>{{ item.1 }}</strong></td>
+
+                                {% else %}
+                                    <td scope="col">{{ item.1 }}</td>
+
+                                {% endif %}
                             {% endif %}
+
 
                         {% endfor %}
                     </tr>

@@ -44,6 +44,14 @@
                     <th scope="col">Nom etudiant</th>
                     <th scope="col">Prenom etudiant</th>
                     <th scope="col"> Groupe</th>
+
+                    {% for unite in unites %}
+                        {% for module in unite.modules.all %}
+                            <th scope="col"> {{ module.nom }}</th>
+                        {% endfor %}
+                        <th scope="col"> Moy unite</th>
+                    {% endfor %}
+
                     <th scope="col">Moyenne</th>
                 </tr>
                 </thead>
@@ -54,10 +62,22 @@
                     <tr>
                         {% for item in moyenne.items %}
                             {% if forloop.last %}
-                                <td class="table-active" scope="col"><strong>{{ item.1 }}</strong></td>
+                                <td class="table-secondary" scope="col"><strong>{{ item.1 }}</strong></td>
 
                             {% else %}
-                                <td scope="col">{{ item.1 }}</td>
+
+                                {% if item.0 in unites %}
+                                    <td class="table-warning" scope="col"><strong>{{ item.1 }}</strong></td>
+                                {% elif forloop.counter >= 5 %}
+                                    <td class="table-active" scope="col"><strong>{{ item.1 }}</strong></td>
+
+
+
+                                {% else %}
+                                    <td scope="col">{{ item.1 }}</td>
+
+                                {% endif %}
+
 
                             {% endif %}
 

@@ -1,0 +1,60 @@
+{% extends 'dashboard/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'dashboard_home_page' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Mes Information</li>
+    </ol>
+
+
+
+    <div class="row">
+        <div class="col">
+            <h3 class="text-center">Information de l'etudiant</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Matricule : </strong> {{ etudiant.id }}</li>
+                <li class="list-group-item"><strong>Date d'enregistrement</strong>
+                    : {{ etudiant.user.date_joined }}
+                </li>
+                <li class="list-group-item"><strong>Nom et prénom</strong>
+                    : {{ etudiant.nom.upper }} {{ etudiant.prenom.capitalize }}
+                </li>
+                <li class="list-group-item"><strong>Sexe : </strong> {{ etudiant.sexe }}</li>
+                <li class="list-group-item"><strong>Né(e) le </strong>{{ etudiant.date_naissance }}
+                    <strong> à</strong> {{ etudiant.lieu_naissance.capitalize }}</li>
+
+                <li class="list-group-item"><strong>Adresse actuelle : </strong> {{ etudiant.adresse }}</li>
+                <li class="list-group-item"><strong>Nationalite : </strong>{{ etudiant.nationalite.name }}
+                </li>
+                <li class="list-group-item"><strong>Télephone : </strong>{{ etudiant.telephone }}</li>
+                <li class="list-group-item"><strong>Email : </strong> <a
+                        href="mailto:{{ etudiant.user.email }}">{{ etudiant.user.email }}</a>
+                </li>
+
+            </ul>
+        </div>
+
+
+        <div class="col">
+            <h3 class="text-center">Bac de l'etudiant</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Numéro : </strong> {{ bac.numero }}</li>
+                <li class="list-group-item"><strong>Note : </strong> {{ bac.note }}</li>
+                <li class="list-group-item"><strong>Mention : </strong> {{ bac.mention }}</li>
+                <li class="list-group-item"><strong>Session : </strong> {{ bac.session }}</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
