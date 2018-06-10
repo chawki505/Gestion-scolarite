@@ -73,10 +73,18 @@ def liste_notes_module(request, pk):
 
             moyenne_dict = dict()
 
-            noteCC = notes.get(inscription=inscription).noteCC
-            noteEF = notes.get(inscription=inscription).noteEF
-
-            moyenne = notes.get(inscription=inscription).moyenne1
+            try:
+                noteCC = notes.get(inscription=inscription).noteCC
+            except:
+                noteCC = 0
+            try:
+                noteEF = notes.get(inscription=inscription).noteEF
+            except:
+                noteEF = 0
+            try:
+                moyenne = notes.get(inscription=inscription).moyenne1
+            except:
+                moyenne = 0
 
             moyenne_dict['numero'] = inscription.etudiant.id
             moyenne_dict['nom'] = inscription.etudiant.nom.upper()
@@ -128,10 +136,18 @@ def pv_module(request, pk):
             # counter and dictionary initialisation
 
             moyenne_dict = dict()
-            noteCC = notes.get(inscription=inscription).noteCC
-            noteEF = notes.get(inscription=inscription).noteEF
-
-            moyenne = notes.get(inscription=inscription).moyenne1
+            try:
+                noteCC = notes.get(inscription=inscription).noteCC
+            except:
+                noteCC = 0
+            try:
+                noteEF = notes.get(inscription=inscription).noteEF
+            except:
+                noteEF = 0
+            try:
+                moyenne = notes.get(inscription=inscription).moyenne1
+            except:
+                moyenne = 0
 
             moyenne_dict['numero'] = inscription.etudiant.id
             moyenne_dict['nom'] = inscription.etudiant.nom.upper()
@@ -221,8 +237,12 @@ def liste_notes_unite(request, pk):
                     if note.noteER is not None:
                         note.calcule_moyenne2()
 
-                # get moyenne module
-                moyenne_module = notes.get(inscription=inscription).moyenne1
+                try:
+                    # get moyenne module
+                    moyenne_module = notes.get(inscription=inscription).moyenne1
+
+                except:
+                    moyenne_module = 0
 
                 # somme all moyenne module unite
                 moyenne += moyenne_module * module.coefficient
@@ -296,8 +316,11 @@ def pv_unite(request, pk):
                     if note.noteER is not None:
                         note.calcule_moyenne2()
 
-                # get moyenne module
-                moyenne_module = notes.get(inscription=inscription).moyenne1
+                try:
+                    # get moyenne module
+                    moyenne_module = notes.get(inscription=inscription).moyenne1
+                except:
+                    moyenne_module = 0
 
                 # somme all moyenne module unite
                 moyenne += moyenne_module * module.coefficient
@@ -442,7 +465,6 @@ def liste_notes_semestre(request, pk):
 
                 for module in unite.modules.all():
 
-
                     # get all notes module
                     notes = module.notes.filter(inscription__annee_universitaire=last_annee_univ)
 
@@ -450,8 +472,11 @@ def liste_notes_semestre(request, pk):
                     for note in notes:
                         note.calcule_moyenne1()
 
-                    # get moyenne module
-                    moyenne_module = notes.get(inscription=inscription).moyenne1
+                    try:
+                        # get moyenne module
+                        moyenne_module = notes.get(inscription=inscription).moyenne1
+                    except:
+                        moyenne_module = 0
 
                     # somme all moyenne module unite
                     moyenne_unite += moyenne_module * module.coefficient
@@ -527,7 +552,6 @@ def pv_semestre(request, pk):
 
                 for module in unite.modules.all():
 
-
                     # get all notes module
                     notes = module.notes.filter(inscription__annee_universitaire=last_annee_univ)
 
@@ -535,8 +559,11 @@ def pv_semestre(request, pk):
                     for note in notes:
                         note.calcule_moyenne1()
 
-                    # get moyenne module
-                    moyenne_module = notes.get(inscription=inscription).moyenne1
+                    try:
+                        # get moyenne module
+                        moyenne_module = notes.get(inscription=inscription).moyenne1
+                    except:
+                        moyenne_module = 0
 
                     # somme all moyenne module unite
                     moyenne_unite += moyenne_module * module.coefficient

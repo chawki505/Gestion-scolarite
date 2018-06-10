@@ -274,6 +274,7 @@ def dashboard_etudiant_parcours(request, pk):
         # test si etudiant(acces seulement a ses information)
         if (request.user.groups.filter(name='Etudiants').exists() and
                 get_object_or_404(Etudiant, pk=pk).__eq__(request.user.etudiant)):
+
             # get etudiant
             etudiant = Etudiant.objects.get(pk=pk)
 
@@ -287,8 +288,10 @@ def dashboard_etudiant_parcours(request, pk):
             semestres = inscription.parcours.semestres.all()
 
             # get all notes etudiant
-
             notes = Note.objects.filter(inscription=inscription)
+
+            for note in notes:
+                note.calcule_moyenne1()
 
             # get new message
             get_messages = Message.objects.filter(

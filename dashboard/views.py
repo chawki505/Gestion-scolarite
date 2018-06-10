@@ -34,10 +34,11 @@ def liste_messages(request):
         get_messages = Message.objects.filter(
             Q(destinataire=request.user) & Q(open=False))
 
-        # test si admin
-        if request.user.groups.filter(name='Administrateur').exists():
+        # test si admin ou prof
+        if request.user.groups.filter(name='Administrateur').exists() or \
+                request.user.groups.filter(name='Enseignants').exists():
             # get all messages pour admin
-            messages_recu = Message.objects.filter(destinataire=request.user)
+            messages_recu = Message.objects.filter(destinataire=request.user).order_by('-created_date')
 
             contexe = {
                 'messages': get_messages,
@@ -47,7 +48,7 @@ def liste_messages(request):
 
         else:
             # get all message user
-            messages_envoyer = Message.objects.filter(auteur=request.user)
+            messages_envoyer = Message.objects.filter(auteur=request.user).order_by('-created_date')
 
             contexe = {
                 'messages': get_messages,

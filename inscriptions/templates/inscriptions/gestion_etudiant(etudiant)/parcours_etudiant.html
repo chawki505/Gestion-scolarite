@@ -13,60 +13,6 @@
         <li class="breadcrumb-item active">Mon parcours</li>
     </ol>
 
-
-
-
-    <div class="row mt-5">
-        <div class="col">
-            <h3 class="text-center"> Semestres</h3>
-
-        </div>
-    </div>
-
-    <div class="row">
-        {% for semestre in semestres %}
-
-            <div class="col">
-                <h5 class="text-center">{{ semestre.nom }}</h5>
-
-                <table class="table table-bordered">
-                    <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Unité</th>
-                        <th scope="col">Nom module</th>
-                        <th scope="col">Coefficient</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-
-                    {% for unite in semestre.unites.all %}
-                        {% for module in unite.modules.all %}
-                            <tr>
-                                {% ifchanged %}
-                                    <th scope="col" rowspan="{{ unite.modules.count }}">{{ unite.nom }}</th>
-                                {% endifchanged %}
-
-                                <td> {{ module.nom }}</td>
-                                <td> {{ module.coefficient }}</td>
-                            </tr>
-                        {% endfor %}
-
-                    {% endfor %}
-                    </tbody>
-
-                </table>
-            </div>
-
-        {% endfor %}
-
-    </div>
-
-
-
-
-    <hr>
-
     <div class="row mt-5">
         <div class="col">
             <h3 class="text-center"> Mes notes</h3>
@@ -86,6 +32,9 @@
                         <th scope="col">Unité</th>
                         <th scope="col">Nom module</th>
                         <th scope="col">Coefficient</th>
+                        <th scope="col">CC</th>
+                        <th scope="col">EF</th>
+                        <th scope="col">Moyenne</th>
                     </tr>
                     </thead>
 
@@ -100,6 +49,15 @@
 
                                 <td> {{ module.nom }}</td>
                                 <td> {{ module.coefficient }}</td>
+                                {% for note in notes %}
+                                    {% if note.module == module %}
+                                        <th class="table-active"> {{ note.noteCC }}</th>
+                                        <th class="table-active"> {{ note.noteEF }}</th>
+                                        <th class="table-secondary"> {{ note.moyenne1 }}</th>
+                                    {% endif %}
+                                {% endfor %}
+
+
                             </tr>
                         {% endfor %}
 
