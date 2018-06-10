@@ -29,32 +29,22 @@ def dashboard_home_page(request):
 # affichage des messages recu
 def liste_messages(request):
     if request.user.is_authenticated:
-
         # get new message
         get_messages = Message.objects.filter(
             Q(destinataire=request.user) & Q(open=False))
 
-        # test si admin ou prof
-        if request.user.groups.filter(name='Administrateur').exists() or \
-                request.user.groups.filter(name='Enseignants').exists():
-            # get all messages pour admin
-            messages_recu = Message.objects.filter(destinataire=request.user).order_by('-created_date')
+        # get all messages recu
+        messages_recu = Message.objects.filter(destinataire=request.user).order_by('-created_date')
 
-            contexe = {
-                'messages': get_messages,
+        # get all message envoyer
+        messages_envoyer = Message.objects.filter(auteur=request.user).order_by('-created_date')
 
-                'messages_recu': messages_recu,
-            }
+        contexe = {
+            'messages': get_messages,
 
-        else:
-            # get all message user
-            messages_envoyer = Message.objects.filter(auteur=request.user).order_by('-created_date')
-
-            contexe = {
-                'messages': get_messages,
-
-                'messages_recu': messages_envoyer,
-            }
+            'messages_recu': messages_recu,
+            'messages_envoyer': messages_envoyer,
+        }
 
         return render(request, 'dashboard/messagerie/messages_liste.html', contexe)
 
@@ -68,8 +58,8 @@ def details_message(request, pk):
 
         message = Message.objects.get(pk=pk)
 
-        # test si admin mettre le message comme lu
-        if request.user.groups.filter(name='Administrateur').exists():
+        # test si destinataire mettre le message comme lu
+        if message.destinataire == request.user:
             message.open_msg()
 
         reponses = message.reponses.all()

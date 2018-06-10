@@ -13,41 +13,68 @@
     </ol>
 
 
-
-
+    <a class="btn btn-outline-primary btn-sm" href="{% url 'ecrire_message' %}" role="button">Ecrire un
+        message</a>
     <div class="row">
 
         <div class="col">
-            <h2>Mes messages</h2>
-            <a class="btn btn-outline-primary btn-sm" href="{% url 'ecrire_message' %}" role="button">Ecrire un
-                message</a>
+            <h2 class="text-center">Messages reçu</h2>
+            <hr>
+
+            <ul class="list-group">
+                {% if messages_recu %}
+                    {% for message in messages_recu %}
+
+                        <li class="list-group-item">
+                            <ul class="list-group">
+                                <li class="list-group-item"><strong>De : </strong>{{ message.auteur }}</li>
+                                <li class="list-group-item"><strong>A : </strong> {{ message.destinataire }}</li>
+                                <li class="list-group-item"><strong>Titre : </strong> {{ message.titre }}</li>
+                                <li class="list-group-item"><strong>Date : </strong> {{ message.created_date }}</li>
+                                <li class="list-group-item"><strong>Message : </strong>{{ message.texte }}</li>
+                                <a class="list-group-item list-group-item-action active text-center"
+                                   href="{% url 'message_details' pk=message.id %}"><span>Details</span></a>
+                            </ul>
+                        </li>
+
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center"> Pas de message pour l'instant</p>
+                {% endif %}
+            </ul>
+
+        </div>
+
+        <div class="col">
+            <h2 class="text-center">Messages envoyer</h2>
             <hr>
 
             <ul class="list-group">
 
+                {% if messages_envoyer %}
+                    {% for message in messages_envoyer %}
 
-                {% for message in messages_recu %}
+                        <li class="list-group-item">
+                            <ul class="list-group">
+                                <li class="list-group-item"><strong>De : </strong>{{ message.auteur }}</li>
+                                <li class="list-group-item"><strong>A : </strong> {{ message.destinataire }}</li>
+                                <li class="list-group-item"><strong>Titre : </strong> {{ message.titre }}</li>
+                                <li class="list-group-item"><strong>Date : </strong> {{ message.created_date }}</li>
+                                <li class="list-group-item"><strong>Message : </strong>{{ message.texte }}</li>
+                                <a class="list-group-item list-group-item-action active text-center"
+                                   href="{% url 'message_details' pk=message.id %}"><span>Details</span></a>
+                            </ul>
+                        </li>
 
-                    <li class="list-group-item">
-                        <ul class="list-group">
-                            <li class="list-group-item"><strong>De : </strong>{{ message.auteur }}</li>
-                            <li class="list-group-item"><strong>A : </strong> {{ message.destinataire }}</li>
-                            <li class="list-group-item"><strong>Titre : </strong> {{ message.titre }}</li>
-                            <li class="list-group-item"><strong>Date : </strong> {{ message.created_date }}</li>
-                            <li class="list-group-item"><strong>Message : </strong>{{ message.texte }}</li>
-                            <a class="list-group-item list-group-item-action active text-center"
-                               href="{% url 'message_details' pk=message.id %}"><span>Details</span></a>
-                        </ul>
-                    </li>
-
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center"> Pas de message pour l'instant</p>
+                {% endif %}
             </ul>
 
         </div>
 
     </div>
-
-
 
 
 {% endblock %}
