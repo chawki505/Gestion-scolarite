@@ -54,10 +54,9 @@ def liste_notes_module(request, pk):
         # get all notes module
         notes = module.notes.filter(inscription__annee_universitaire=last_annee_univ)
 
+        #callculer pour chaque note la moyenne
         for note in notes:
             note.calcule_moyenne1()
-            if note.noteER is not None:
-                note.calcule_moyenne2()
 
         # get inscriptions modules
         inscriptions = Inscription.objects.filter(

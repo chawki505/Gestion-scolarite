@@ -40,7 +40,7 @@ def dashboard_liste_etudiants(request):
 
         last_inscriptions = Inscription.objects.filter(annee_universitaire__nom__contains=timezone.now().year)
 
-        inscriptions_filter = last_inscriptions.objects.filter(parcours__semestres__unites__in=unites)
+        inscriptions_filter = Inscription.objects.filter(parcours__semestres__unites__in=unites)
 
         etudiants = Etudiant.objects.filter(inscriptions__in=inscriptions_filter)
 
