@@ -24,7 +24,7 @@ SECRET_KEY = '!#&d$zq1(4o7&i-+9iaj6z(jt8jat6_(3%gi(+!06g$sci11s%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'scolarite.pythonanywhere.com']
 
 # Application definition
 
