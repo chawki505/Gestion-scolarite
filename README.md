@@ -5,3 +5,6 @@ Projet de fin d'étude sur la gestion de la scolarité d'un département quelcon
 <li>CHOUIB Chawki</li>
 <li>DJEZIRI Ibtissem</li>
 </ul>
+
+
+lien : http://scolarite.pythonanywhere.com/
