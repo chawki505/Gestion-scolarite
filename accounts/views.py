@@ -9,12 +9,13 @@ from django.contrib.auth import password_validation
 
 from .models import *
 
+from inscriptions.models import *
+
 
 # Create your views here.
 
 # connexion d'un utilisateur
 def login_account(request):
-
     # test so connecter
     if request.user.is_authenticated:
         return redirect('dashboard_home_page')
@@ -91,6 +92,9 @@ def register_account(request):
         user.last_name = prenom
 
         user.save()
+
+        etudiant = Etudiant.objects.create(user=user, nom=nom, prenom=prenom)
+        etudiant.save()
 
         messages.success(request, "Merci pour votre enregistrement")
 

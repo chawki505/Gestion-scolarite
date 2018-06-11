@@ -11,8 +11,8 @@ class Etudiant(models.Model):
     nom = models.CharField(max_length=256)
     prenom = models.CharField(max_length=256)
 
-    sexe = models.CharField(
-        choices=(('Homme', 'Homme'), ('Femme', 'Femme')), max_length=256)
+    sexe = models.CharField(blank=True, null=True,
+                            choices=(('Homme', 'Homme'), ('Femme', 'Femme')), max_length=256)
 
     adresse = models.CharField(max_length=256, blank=True, null=True)
 
@@ -78,7 +78,6 @@ class Groupe(models.Model):
 
 
 class Inscription(models.Model):
-
     etudiant = models.ForeignKey(Etudiant, related_name='inscriptions')
 
     annee_universitaire = models.ForeignKey('etablissements.Annee_universitaire',
@@ -87,7 +86,6 @@ class Inscription(models.Model):
     parcours = models.ForeignKey('modules.Parcours', related_name='inscriptions')
 
     groupe = models.ForeignKey(Groupe, related_name='inscriptions', null=True)
-
 
     date_creation = models.DateTimeField(auto_now_add=True)
 
@@ -124,7 +122,7 @@ class Note(models.Model):
         return self.inscription.etudiant.__str__() + " Module : " + self.module.nom
 
     def calcule_moyenne1(self):
-        self.moyenne1 = round( (self.noteCC + self.noteEF) / 2, 2)
+        self.moyenne1 = round((self.noteCC + self.noteEF) / 2, 2)
         self.save()
 
     def calcule_moyenne2(self):
